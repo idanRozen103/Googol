@@ -1,22 +1,46 @@
-// import {Modal} from '.../cmps/Modal.jsx'
+const { withRouter } = ReactRouterDOM
 
-import { Modal } from "../../cmps/Modal.jsx";
+import {mailService} from '../mail-services/mailService.js'
+import { MailModal } from "./MailModal.jsx";
 
-export  class MailCompose extends React.Component {
+class _MailCompose extends React.Component {
 
-    // state = {
+    state = {
+        newMail: { to: '', subject: '', body: '' }
+    }
 
-    // }
+    onSendMail = (ev) => {
+        ev.preventDefault()
+        mailService.addMail(this.state.newMail)
+        this.props.history.push('/mail')
+
+
+    }
+
+    onInputChange = (ev) => {
+        console.log('Input:', ev.target.name);
+        console.log('Changed', ev.target.value);
+        this.setState({ newMail: { ...this.state.newMail, [ev.target.name]: ev.target.value } })
+    }
+
 
 
     render() {
         return (
             <div>
-                <Modal>
-                    <div>heyheyheyheyheyhbeyebyhey</div>
-                </Modal>
-                
+                <MailModal>
+                    <form type="submit" className="compose-mail-form flex column" action="">
+                        <section className="new-mail-header flex">New Mail</section>
+                        <input className="to-input" name="to" type="email" placeholder="To:" onChange={this.onInputChange} />
+                        <input className="subject-input" name="subject" type="text" placeholder="Subject:" onChange={this.onInputChange} />
+                        <textarea className="compose-mail-body" name="body" id="" cols="20" rows="18" maxLength="" onChange={this.onInputChange}></textarea>
+                        <button onClick={this.onSendMail}>Send</button>
+                    </form>
+                </MailModal>
+
             </div>
         )
     }
 }
+
+export const MailCompose = withRouter(_MailCompose)

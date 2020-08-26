@@ -3,13 +3,14 @@ import { utils } from '../mail-services/mailUtils.js'
 export const mailService = {
     query,
     getFormatTime,
+    addMail,
 }
 
 var mails = _createMails(10)
 
 window.theMails = mails
 
-function createMail(name = 'StavIdan', subject = 'Wassap?', body = 'Pick up!') {
+function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'StavIdan') {
     const mail = {
         name,
         id: utils.makeId(),
@@ -29,6 +30,11 @@ function _createMails(num) {
     return _mails
 }
 
+function addMail({to, subject, body}) {
+    const newMail = createMail(subject, body)
+    mails.unshift(newMail)
+    
+}
 
 function query() {
     return Promise.resolve(mails)
@@ -38,7 +44,7 @@ function getFormatTime(unFormatTime) {
     const currTime = new Date(Date.now())
     const sentTime = new Date(unFormatTime)
     const [currHour, sentHour] = [currTime.getHours(), sentTime.getHours()]
-    if (currHour > sentHour) {
+    if (currHour >= sentHour) {
         return `${sentHour}:${sentTime.getMinutes()}`
     } else {
         const month = sentTime.toLocaleString('default', { month: 'short' });

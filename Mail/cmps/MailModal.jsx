@@ -1,9 +1,14 @@
-export class Modal extends React.Component {
+const { withRouter } = ReactRouterDOM
+
+
+class _MailModal extends React.Component {
     state = {
         isShown: true
     }
-    closeModal = () => {
-        this.setState({ isShown: false })
+    closeModal = (ev) => {
+        ev.preventDefault()
+        // this.setState({ isShown: false })
+        this.props.history.push('/mail')
     }
     render() {
         const { isShown } = this.state
@@ -11,10 +16,12 @@ export class Modal extends React.Component {
         return (
             <div className={ `modal-wrapper ${isShown ? '' : 'hide'}` } onClick={ this.closeModal } >
                 <div className="modal-content" onClick={ (ev) => ev.stopPropagation() }>
-                    <button onClick={ this.closeModal }>X</button>
                     { children }
+                    <button className="close-mail-modal" onClick={ this.closeModal }>X</button>
                 </div>
             </div >
         )
     }
 }
+
+export const MailModal = withRouter(_MailModal)
