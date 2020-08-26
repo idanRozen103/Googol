@@ -1,4 +1,4 @@
-const { NavLink, Route, Switch } = ReactRouterDOM
+const { NavLink, Route, Switch , withRouter} = ReactRouterDOM
 
 import { mailService } from './mail-services/mailService.js'
 import { MailList } from './cmps/MailList.jsx'
@@ -8,7 +8,7 @@ import { MailCompose } from './cmps/MailCompose.jsx'
 
 
 
-export class MailApp extends React.Component {
+class _MailApp extends React.Component {
 
     state = {
         mails: []
@@ -28,27 +28,34 @@ export class MailApp extends React.Component {
     onDeleteMail = (mail) => {
         mailService.deleteMail(mail)
         this.loadMails()
-        
     }
 
+    onMarkRead = (mail) => {
+        mailService.markRead(mail)
+        this.loadMails()
+        this.props.history.push('/mail')
+
+    }
 
     render() {
         const { mails } = this.state
-        if (!mails.length) return <div>Loading...</div>
+        // if (!mails.length) return <div>Loading...</div>
         return (
 
             <div className="mail-container container flex">
                 <nav className="mail-side-nav flex column">
-                    <NavLink to="/mail/compose">Compose</NavLink>
+                    <NavLink className="compose-mail" to="/mail/compose">Compose</NavLink>
                     <div className="mail-link">Inbox</div>
                     <div className="mail-link">Starred</div>
                     <div className="mail-link">Sent Mails</div>
                     <div className="mail-link">Drafts</div>
                 </nav>
-                <MailList mails={mails} onDeleteMail={this.onDeleteMail}/>
+                <MailList mails={mails} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead}/>
                 <Route component={MailCompose} path="/mail/compose"/>
 
             </div>
         )
     }
 }
+
+export const MailApp = withRouter(_MailApp)

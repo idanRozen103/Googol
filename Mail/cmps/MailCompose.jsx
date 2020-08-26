@@ -32,7 +32,7 @@ class _MailCompose extends React.Component {
                         <input className="to-input" name="to" type="email" placeholder="To:" onChange={this.onInputChange} />
                         <input className="subject-input" name="subject" type="text" placeholder="Subject:" onChange={this.onInputChange} />
                         <textarea className="compose-mail-body" name="body" id="" cols="20" rows="18" maxLength="" onChange={this.onInputChange}></textarea>
-                        <button onClick={this.onSendMail}>Send</button>
+                        <button className="send-mail-btn" onClick={this.onSendMail}>Send</button>
                     </form>
                 </MailModal>
 

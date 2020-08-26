@@ -4,7 +4,8 @@ export const mailService = {
     query,
     getFormatTime,
     addMail,
-    deleteMail
+    deleteMail,
+    markRead
 }
 
 var mails = _createMails(10)
@@ -49,13 +50,21 @@ function getFormatTime(unFormatTime) {
     const sentTime = new Date(unFormatTime)
     const [currHour, sentHour] = [currTime.getHours(), sentTime.getHours()]
     if (currHour >= sentHour) {
-        return `${sentHour}:${sentTime.getMinutes()}`
+        return `${get2DigTime(sentHour)}:${get2DigTime(sentTime.getMinutes())}`
     } else {
         const month = sentTime.toLocaleString('default', { month: 'short' });
         const day = sentTime.getDate()
         return `${month} ${day}`
-        // console.log("getFormatTime -> day", day)
         // console.log(month);
     }
 
+}
+
+function get2DigTime(num) {
+    if ((num+'').length===1) return '0' + num
+    return num
+}
+
+function markRead(mailToMark) {
+    mailToMark.isRead = true
 }
