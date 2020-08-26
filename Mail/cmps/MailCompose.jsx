@@ -18,8 +18,6 @@ class _MailCompose extends React.Component {
     }
 
     onInputChange = (ev) => {
-        console.log('Input:', ev.target.name);
-        console.log('Changed', ev.target.value);
         this.setState({ newMail: { ...this.state.newMail, [ev.target.name]: ev.target.value } })
     }
 

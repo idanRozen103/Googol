@@ -25,7 +25,10 @@ export class MailApp extends React.Component {
             })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    onDeleteMail = (mail) => {
+        mailService.deleteMail(mail)
+        this.loadMails()
+        
     }
 
 
@@ -42,7 +45,7 @@ export class MailApp extends React.Component {
                     <div className="mail-link">Sent Mails</div>
                     <div className="mail-link">Drafts</div>
                 </nav>
-                <MailList mails={mails} />
+                <MailList mails={mails} onDeleteMail={this.onDeleteMail}/>
                 <Route component={MailCompose} path="/mail/compose"/>
 
             </div>

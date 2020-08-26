@@ -25,6 +25,12 @@ export class MailPreview extends React.Component {
                 <div className="mail-prev-time">
                     <span>{mailService.getFormatTime(mail.sentAt)}</span>
                 </div>
+
+                <section className="mail-edit-btns">
+                    <button onClick={() => {
+                        this.props.onDeleteMail(mail)
+                    }}>X</button>
+                </section>
                 
 
             </div>

@@ -9,7 +9,7 @@ export class MailList extends React.Component {
             <ul className="mail-list flex column">
                 {this.props.mails.map((mail) => 
                     <li key={mail.id} className="mail-li">
-                        <MailPreview mail={mail}/>
+                        <MailPreview mail={mail} onDeleteMail={this.props.onDeleteMail}/>
                     </li>
                 )}
             </ul>

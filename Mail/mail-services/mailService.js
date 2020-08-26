@@ -4,6 +4,7 @@ export const mailService = {
     query,
     getFormatTime,
     addMail,
+    deleteMail
 }
 
 var mails = _createMails(10)
@@ -33,7 +34,10 @@ function _createMails(num) {
 function addMail({to, subject, body}) {
     const newMail = createMail(subject, body)
     mails.unshift(newMail)
-    
+}
+
+function deleteMail(mailToDelete) {
+    mails = mails.filter((mail) => mail.id !== mailToDelete.id)
 }
 
 function query() {
