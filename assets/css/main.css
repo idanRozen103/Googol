@@ -1,7 +1,61 @@
-body {
-    background-color: lightblue;
+@import './modal.css';
+@import './mail/mail-main.css';
+
+
+* {
+    box-sizing: border-box;
+    font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+li {
+    list-style: none;
+}
+
+
+body {
+    background-color: rgb(239, 239, 240);
+    margin: 0;
+    padding: 0;
+}
+
+
+header.main-header {
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: rgb(216, 216, 216);
+    padding: 10px;
+}
+
+.nav-container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav.main-nav {
+    display: flex;
+}
+.main-nav .nav-link {
+    margin-left: 1rem;
+}
+
+h2.logo {
+    /* flex-basis: 50%; */
+    
+}
+
+
+/* HELPERS */
 
 .flex{
     display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.container {
+    width: 90vw;
+    margin: 0 auto;
 }
