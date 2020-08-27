@@ -41,6 +41,10 @@ function deleteMail(mailToDelete) {
     mails = mails.filter((mail) => mail.id !== mailToDelete.id)
 }
 
+function markRead(mailToMark) {
+    return Promise.resolve(mailToMark.isRead = true)
+}
+
 function query() {
     return Promise.resolve(mails)
 }
@@ -65,7 +69,3 @@ function get2DigTime(num) {
     return num
 }
 
-function markRead(mailToMark) {
-    return Promise.resolve(mailToMark.isRead = true)
-
-}

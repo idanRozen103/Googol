@@ -10,21 +10,11 @@ export class MailPreview extends React.Component {
     
 
     getBodyStyle() {
-        
-        
-        let fontWeight = (!this.state.isRead) ? '800' : ''
+        let fontWeight = (!this.props.mail.isRead) ? '800' : ''
         return {'fontWeight': fontWeight} 
 
     }
 
-    // componentDidUpdate() {
-    //     this.setState({isRead: !this.state.isRead})
-    // }
-    
-
-    // do() {
-    //     this.setState({isRead: true})
-    // }
     
 
     render() {

@@ -45,10 +45,11 @@ class _MailApp extends React.Component {
 
     render() {
         const { mails } = this.state
-        if (!mails.length) return <div>Loading...</div>
+        // if (!mails.length) return <div>Loading...</div>
         return (
-
+        
             <div className="mail-container container flex">
+                {console.log('render mailApp', mails)}
                 <nav className="mail-side-nav flex column">
                     <NavLink className="compose-mail" to="/mail/compose">Compose</NavLink>
                     <div className="mail-link">Inbox</div>
@@ -56,7 +57,8 @@ class _MailApp extends React.Component {
                     <div className="mail-link">Sent Mails</div>
                     <div className="mail-link">Drafts</div>
                 </nav>
-                <MailList mails={mails} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead}/>
+                
+                <MailList mails={this.state.mails} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead}/>
                 <Route component={MailCompose} path="/mail/compose"/>
 
             </div>
