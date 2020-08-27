@@ -40,7 +40,8 @@ class _MailApp extends React.Component {
             })         
     }
 
-    onStarredMail = (mail) => {
+    onStarredMail = (ev, mail) => {
+        ev.stopPropagation()
         mailService.starMail(mail)
             .then(()=>{
                 this.loadMails()

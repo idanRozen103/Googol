@@ -6,14 +6,15 @@ export const mailService = {
     addMail,
     deleteMail,
     markRead,
-    starMail
+    starMail,
+    getById
 }
 
 var mails = _createMails(10)
 
 window.theMails = mails
 
-function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'StavIdan') {
+function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
     const mail = {
         name,
         id: utils.makeId(),
@@ -34,7 +35,14 @@ function _createMails(num) {
     return _mails
 }
 
-function addMail({to, subject, body}) {
+
+function getById(mailId) {
+    const mail = mails.find(mail => mail.id === mailId)
+  
+    return Promise.resolve(mail)
+}
+
+function addMail({ to, subject, body }) {
     const newMail = createMail(subject, body)
     mails.unshift(newMail)
 }
@@ -44,7 +52,7 @@ function deleteMail(mailToDelete) {
 }
 
 function markRead(mailToMark) {
-    return Promise.resolve(mailToMark.isRead = true)
+    return Promise.resolve(mailToMark.isRead = !mailToMark.isRead)
 }
 
 function starMail(mail) {
@@ -71,7 +79,7 @@ function getFormatTime(unFormatTime) {
 }
 
 function get2DigTime(num) {
-    if ((num+'').length===1) return '0' + num
+    if ((num + '').length === 1) return '0' + num
     return num
 }
 
