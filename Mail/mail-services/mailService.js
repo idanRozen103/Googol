@@ -66,5 +66,6 @@ function get2DigTime(num) {
 }
 
 function markRead(mailToMark) {
-    mailToMark.isRead = true
+    return Promise.resolve(mailToMark.isRead = true)
+
 }

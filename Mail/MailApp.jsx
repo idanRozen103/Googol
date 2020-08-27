@@ -16,7 +16,10 @@ class _MailApp extends React.Component {
 
     componentDidMount() {
         this.loadMails()
+
     }
+
+    
 
     loadMails() {
         mailService.query()
@@ -32,14 +35,17 @@ class _MailApp extends React.Component {
 
     onMarkRead = (mail) => {
         mailService.markRead(mail)
-        this.loadMails()
-        this.props.history.push('/mail')
+            .then(()=>{
+                this.loadMails()
+            })         
+        
+        
 
     }
 
     render() {
         const { mails } = this.state
-        // if (!mails.length) return <div>Loading...</div>
+        if (!mails.length) return <div>Loading...</div>
         return (
 
             <div className="mail-container container flex">

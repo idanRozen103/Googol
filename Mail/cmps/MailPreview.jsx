@@ -10,9 +10,11 @@ export class MailPreview extends React.Component {
     
 
     getBodyStyle() {
+        
+        
         let fontWeight = (!this.state.isRead) ? '800' : ''
         return {'fontWeight': fontWeight} 
-        // return fontWeight       
+
     }
 
     // componentDidUpdate() {
@@ -46,8 +48,8 @@ export class MailPreview extends React.Component {
                 <section className="mail-edit-btns">
                     <button onClick={() => {
                         this.props.onMarkRead(mail)
-
                     }}><i className="fas fa-envelope-open-text"></i></button>
+
                     <button onClick={() => {
                         this.props.onDeleteMail(mail)
                     }}><i className="fas fa-trash-alt"></i></button>
