@@ -52,8 +52,9 @@ class _MailApp extends React.Component {
                 {console.log('render mailApp', mails)}
                 <nav className="mail-side-nav flex column">
                     <NavLink className="compose-mail" to="/mail/compose">Compose</NavLink>
-                    <div className="mail-link">Inbox</div>
-                    <div className="mail-link">Starred</div>
+                    {/* <div className="mail-link">Inbox</div> */}
+                    <NavLink className="mail-link" to="/mail/inbox">Inbox</NavLink>
+                    <NavLink className="mail-link" to="/mail/starred">Starred</NavLink>
                     <div className="mail-link">Sent Mails</div>
                     <div className="mail-link">Drafts</div>
                 </nav>

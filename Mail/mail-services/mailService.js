@@ -19,7 +19,8 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'StavIdan') {
         subject,
         body,
         isRead: false,
-        sentAt: Date.now()
+        sentAt: Date.now(),
+        isStarred: false
     }
     return mail
 }
