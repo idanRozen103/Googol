@@ -38,25 +38,30 @@ class _MailApp extends React.Component {
             .then(()=>{
                 this.loadMails()
             })         
-        
-        
+    }
 
+    onStarredMail = (mail) => {
+        mailService.starMail(mail)
+            .then(()=>{
+                this.loadMails()
+            })    
     }
 
     render() {
         const { mails } = this.state
-        if (!mails.length) return <div>Loading...</div>
+        // if (!mails.length) return <div>Loading...</div>
         return (
-
+        
             <div className="mail-container container flex">
                 <nav className="mail-side-nav flex column">
                     <NavLink className="compose-mail" to="/mail/compose">Compose</NavLink>
-                    <div className="mail-link">Inbox</div>
-                    <div className="mail-link">Starred</div>
+                    <NavLink className="mail-link" to="/mail/inbox">Inbox</NavLink>
+                    <NavLink className="mail-link" to="/mail/starred">Starred</NavLink>
                     <div className="mail-link">Sent Mails</div>
                     <div className="mail-link">Drafts</div>
                 </nav>
-                <MailList mails={mails} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead}/>
+                
+                <MailList mails={this.state.mails} onStarredMail={this.onStarredMail} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead}/>
                 <Route component={MailCompose} path="/mail/compose"/>
 
             </div>

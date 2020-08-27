@@ -2,29 +2,19 @@ import { mailService } from '../mail-services/mailService.js'
 
 export class MailPreview extends React.Component {
 
-    state =  {
-        isRead: this.props.isRead
-    }
+    // state =  {
+    //     isRead: this.props.isRead
+    // }
 
 
     
 
     getBodyStyle() {
-        
-        
-        let fontWeight = (!this.state.isRead) ? '800' : ''
+        let fontWeight = (!this.props.mail.isRead) ? '800' : ''
         return {'fontWeight': fontWeight} 
 
     }
 
-    // componentDidUpdate() {
-    //     this.setState({isRead: !this.state.isRead})
-    // }
-    
-
-    // do() {
-    //     this.setState({isRead: true})
-    // }
     
 
     render() {
@@ -32,6 +22,15 @@ export class MailPreview extends React.Component {
 
         return (
             <div style={this.getBodyStyle()} className={`mail-prev flex`}>
+
+                <div onClick={()=>{
+                    this.props.onStarredMail(mail)
+                }} className="star-btn">
+                    {!mail.isStarred && <i className="far fa-star"></i>}
+                    {mail.isStarred && <i className="fas fa-star"></i>}
+                </div>
+                
+
                 <div className="mail-prev-name">
                     <span>{mail.name}</span>
                 </div>

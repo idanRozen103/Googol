@@ -1,17 +1,30 @@
-import { MailPreview } from './MailPreview.jsx'
+const Router = ReactRouterDOM.HashRouter
+const { NavLink, Route, Switch, withRouter } = ReactRouterDOM
+
+import { MailInbox } from './MailInbox.jsx'
+import { MailStarred } from './MailStarred.jsx'
 
 
 export class MailList extends React.Component {
 
+
     render() {
+
+
+
         return (
-            <ul className="mail-list flex column">
-                {this.props.mails.map((mail) => 
-                    <li key={mail.id} className="mail-li">
-                        <MailPreview mail={mail} isRead={mail.isRead} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead}/>
-                    </li>
-                )}
-            </ul>
+            // <NavLink to="mail/inbox"></NavLink>
+            <Router>
+                <Switch>
+
+                    <Route path="/mail/inbox">
+                        <MailInbox onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
+                    </Route>
+                    <Route path="/mail/starred">
+                        <MailStarred onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
+                    </Route>
+                </Switch>
+            </Router>
         )
     }
 }

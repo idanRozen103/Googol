@@ -5,7 +5,8 @@ export const mailService = {
     getFormatTime,
     addMail,
     deleteMail,
-    markRead
+    markRead,
+    starMail
 }
 
 var mails = _createMails(10)
@@ -19,7 +20,8 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'StavIdan') {
         subject,
         body,
         isRead: false,
-        sentAt: Date.now()
+        sentAt: Date.now(),
+        isStarred: false
     }
     return mail
 }
@@ -39,6 +41,14 @@ function addMail({to, subject, body}) {
 
 function deleteMail(mailToDelete) {
     mails = mails.filter((mail) => mail.id !== mailToDelete.id)
+}
+
+function markRead(mailToMark) {
+    return Promise.resolve(mailToMark.isRead = true)
+}
+
+function starMail(mail) {
+    return Promise.resolve(mail.isStarred = !mail.isStarred)
 }
 
 function query() {
@@ -65,7 +75,3 @@ function get2DigTime(num) {
     return num
 }
 
-function markRead(mailToMark) {
-    return Promise.resolve(mailToMark.isRead = true)
-
-}
