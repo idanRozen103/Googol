@@ -1,5 +1,6 @@
 export const keepService = {
-    query
+    query,
+    getEmptyTxtNote,
 }
 
 const notes = [
@@ -36,4 +37,20 @@ const notes = [
 function query() {
     return Promise.resolve(notes)
 
+}
+
+
+function getEmptyTxtNote() {
+    return {
+        type: "NoteText",
+        isPinned: false,
+        info: {
+            title: '',
+            txt: "Fullstack Me Baby!"
+        },
+        style: {
+            backgroundColor: "#fff",
+            color: 'black'
+        }
+    }
 }
