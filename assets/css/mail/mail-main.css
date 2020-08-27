@@ -131,7 +131,7 @@
     resize: none;
     border: none;
     width: 100%;
-    height: 80%;
+    /* height: 80%; */
 }
 
 .mail-edit-btns {
@@ -165,8 +165,8 @@
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
+    overflow-wrap: anywhere;
 }
-
 
 
 .send-mail-btn {
@@ -242,6 +242,7 @@
 
 .mail-details-body {
     padding: 5% 0;
+    overflow-wrap: break-word;
 }
 
 .send-mail-btn:hover, .close-mail-modal:hover {

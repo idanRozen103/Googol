@@ -1,4 +1,7 @@
 import { utils } from '../mail-services/mailUtils.js'
+import {storageService} from '../../services/StorageService.js'
+
+const MAIL_KEY ="MAIL"
 
 export const mailService = {
     query,
@@ -27,10 +30,16 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
     return mail
 }
 
+localStorage.clear()
+
 function _createMails(num) {
-    const _mails = []
-    for (let i = 0; i < num; i++) {
-        _mails.push(createMail())
+    var _mails = storageService.load(MAIL_KEY)
+    if (!_mails) {
+        _mails = []
+        for (let i = 0; i < num; i++) {
+            _mails.push(createMail())
+        }
+        storageService.save(MAIL_KEY, _mails)
     }
     return _mails
 }
@@ -45,18 +54,25 @@ function getById(mailId) {
 function addMail({ to, subject, body }) {
     const newMail = createMail(subject, body)
     mails.unshift(newMail)
+    storageService.save(MAIL_KEY, mails)
 }
 
 function deleteMail(mailToDelete) {
     mails = mails.filter((mail) => mail.id !== mailToDelete.id)
+    storageService.save(MAIL_KEY, mails)
 }
 
 function markRead(mailToMark) {
-    return Promise.resolve(mailToMark.isRead = !mailToMark.isRead)
+    mailToMark.isRead = !mailToMark.isRead
+    storageService.save(MAIL_KEY, mails)
+    return Promise.resolve(true)
+    
 }
 
 function starMail(mail) {
-    return Promise.resolve(mail.isStarred = !mail.isStarred)
+    mail.isStarred = !mail.isStarred
+    storageService.save(MAIL_KEY, mails)
+    return Promise.resolve(true)
 }
 
 function query() {
