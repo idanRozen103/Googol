@@ -3,7 +3,6 @@ import { MailPreview } from "./MailPreview.jsx";
 
 export class MailInbox extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <ul className="mail-list flex column">
                 {this.props.mails.map((mail) =>

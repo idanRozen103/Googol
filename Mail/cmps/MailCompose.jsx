@@ -12,9 +12,7 @@ class _MailCompose extends React.Component {
     onSendMail = (ev) => {
         ev.preventDefault()
         mailService.addMail(this.state.newMail)
-        this.props.history.push('/mail')
-
-
+        this.props.history.push('/mail/inbox')
     }
 
     onInputChange = (ev) => {

@@ -7,8 +7,7 @@ class _MailModal extends React.Component {
     }
     closeModal = (ev) => {
         ev.preventDefault()
-        // this.setState({ isShown: false })
-        this.props.history.push('/mail')
+        this.props.history.push('/mail/inbox')
     }
     render() {
         const { isShown } = this.state

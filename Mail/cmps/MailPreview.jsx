@@ -1,57 +1,67 @@
+const { NavLink, withRouter } = ReactRouterDOM
+
 import { mailService } from '../mail-services/mailService.js'
 
-export class MailPreview extends React.Component {
+class _MailPreview extends React.Component {
 
     // state =  {
     //     isRead: this.props.isRead
     // }
 
 
-    
+
 
     getBodyStyle() {
-        let fontWeight = (!this.props.mail.isRead) ? '800' : ''
-        return {'fontWeight': fontWeight} 
+        let fontWeight = (!this.props.mail.isRead) ? '800' : '250'
+        return { 'fontWeight': fontWeight }
 
     }
 
-    
+
 
     render() {
         const { mail } = this.props
 
         return (
+
+
             <div style={this.getBodyStyle()} className={`mail-prev flex`}>
 
-                <div onClick={()=>{
-                    this.props.onStarredMail(mail)
+                <div onClick={(ev) => {
+                    this.props.onStarredMail(ev, mail)
                 }} className="star-btn">
-                    {!mail.isStarred && <i className="far fa-star"></i>}
-                    {mail.isStarred && <i className="fas fa-star"></i>}
-                </div>
-                
-
-                <div className="mail-prev-name">
-                    <span>{mail.name}</span>
+                    {!mail.isStarred && <i className="mail-icon far fa-star"></i>}
+                    {mail.isStarred && <i className="mail-icon fas fa-star"></i>}
                 </div>
 
-                <div className="mail-prev-text">
-                    <span>{mail.subject}</span>
+                <NavLink to={`/mail/${mail.id}`} className="mail-prev-navlink">
+
+
+                    <div className="mail-prev-name">
+                        <span>{mail.name}</span>
+                    </div>
+
+                    <div className="mail-prev-text">
+                        <span>{mail.subject}</span>
                     -<span className="mail-preb-body">{mail.body}</span>
-                </div>
+                    </div>
 
+                    
+                </NavLink>
                 <div className="mail-prev-time">
-                    <span>{mailService.getFormatTime(mail.sentAt)}</span>
-                </div>
-
+                        <span>{mailService.getFormatTime(mail.sentAt)}</span>
+                    </div>
                 <section className="mail-edit-btns">
                     <button onClick={() => {
                         this.props.onMarkRead(mail)
-                    }}><i className="fas fa-envelope-open-text"></i></button>
+                    }}>
+                        {!mail.isRead && <i className="mail-icon fas fa-envelope-open-text"></i>}
+                        {mail.isRead && <i className="mail-icon fas fa-envelope"></i>}
+                    </button>
 
                     <button onClick={() => {
                         this.props.onDeleteMail(mail)
-                    }}><i className="fas fa-trash-alt"></i></button>
+                    }}><i className="mail-icon fas fa-trash-alt"></i></button>
                 </section>
 
 
@@ -59,3 +69,5 @@ export class MailPreview extends React.Component {
         )
     }
 }
+
+export const MailPreview = withRouter(_MailPreview)
