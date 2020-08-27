@@ -8,7 +8,7 @@ export class MailInbox extends React.Component {
             <ul className="mail-list flex column">
                 {this.props.mails.map((mail) =>
                     <li key={mail.id} className="mail-li">
-                        <MailPreview mail={mail} isRead={mail.isRead} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
+                        <MailPreview mail={mail} isRead={mail.isRead} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} onStarredMail={this.props.onStarredMail} />
                     </li>
                 )}
             </ul>

@@ -5,7 +5,8 @@ export const mailService = {
     getFormatTime,
     addMail,
     deleteMail,
-    markRead
+    markRead,
+    starMail
 }
 
 var mails = _createMails(10)
@@ -44,6 +45,10 @@ function deleteMail(mailToDelete) {
 
 function markRead(mailToMark) {
     return Promise.resolve(mailToMark.isRead = true)
+}
+
+function starMail(mail) {
+    return Promise.resolve(mail.isStarred = !mail.isStarred)
 }
 
 function query() {

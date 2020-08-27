@@ -18,10 +18,10 @@ export class MailList extends React.Component {
                 <Switch>
 
                     <Route path="/mail/inbox">
-                        <MailInbox mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
+                        <MailInbox onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
                     </Route>
                     <Route path="/mail/starred">
-                        <MailStarred mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
+                        <MailStarred onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
                     </Route>
                 </Switch>
             </Router>
