@@ -1,19 +1,25 @@
 
 // import { NoteTxt } from './cmps/note-types/NoteTxt.jsx'
 import { NoteList } from './cmps/NoteList.jsx'
+import { NoteModal } from './cmps/NoteModal.jsx'
 import { keepService } from './service/keepService.js'
+
 
 
 export class KeepApp extends React.Component {
 
     state = {
         notes: [],
+        isModalOpen: false,
+        selectedNote: '',
         currView: '',
         txtNoteToAdd: keepService.getEmptyTxtNote()
+
     }
 
     componentDidMount() {
         this.loadNotes()
+
     }
 
     loadNotes() {
@@ -23,17 +29,37 @@ export class KeepApp extends React.Component {
 
     }
 
-    handleInputFocus = (ev) => {
+    HandleInput = (ev) => {
         this.setState({
-            txtNoteToAdd: { ...this.state.reviewToAdd, [ev.target.name]: ev.target.value }
+            txtNoteToAdd: { ...this.state.txtNoteToAdd, [ev.target.name]: ev.target.value }
         })
 
     }
 
-    noteToAdd = (ev, note) => {
-        ev.preventDefault();
-        // keepService.addTxtNote(note)
+    openModal = (note) => {
+        this.setState({ isModalOpen: true, selectedNote: note }, () => {
+            console.log(this.state)
+        })
     }
+    closeModal = (noteId, newTxt) => {
+        console.log(noteId, newTxt);
+        this.setState({ isModalOpen: false, selectedNote: '' })
+        keepService.updateNote(noteId, newTxt)
+            .then(() => this.loadNotes())
+    }
+
+    onTxtNoteToAdd = (ev, note) => {
+        ev.preventDefault();
+        keepService.addTxtNote(note)
+        this.loadNotes()
+    }
+
+    onDeleteNote = (noteId) => {
+        keepService.deleteNote(noteId)
+            .then(() => this.loadNotes())
+    }
+
+
 
 
     render() {
@@ -53,10 +79,10 @@ export class KeepApp extends React.Component {
         return (
             <React.Fragment>
                 <div className="flex notes-input-line" >
-                    <form hidden onSubmit={(ev) => {
-                        this.onAddReview(ev, this.state.txtNoteToAdd)
+                    <form onSubmit={(ev) => {
+                        this.onTxtNoteToAdd(ev, this.state.txtNoteToAdd)
                     }}>
-                        < input name="txt" type="text" name="" id="" placeholder="What's on your mind . . ." onClick={this.handleInputFocus} />
+                        < input name="txt" type="text" placeholder="What's on your mind . . ." onChange={(ev) => { this.HandleInput(ev) }} />
                     </form>
                     <div className="notes-input-btns">
                         <input type="radio" id="text" name="input-btn" value="text" defaultChecked />
@@ -72,8 +98,8 @@ export class KeepApp extends React.Component {
                     </div>
                 </div >
 
-                {/* {this.state.txtNoteToAdd.length && <NoteTxt />} */}
-                <NoteList notes={this.state.notes} />
+                <NoteList notes={this.state.notes} onDeleteNote={this.onDeleteNote} openModal={this.openModal} />
+                {this.state.isModalOpen && <NoteModal note={this.state.selectedNote} closeModal={this.closeModal} />}
             </React.Fragment >
         )
     }

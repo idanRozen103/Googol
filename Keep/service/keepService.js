@@ -1,6 +1,9 @@
 export const keepService = {
     query,
     getEmptyTxtNote,
+    addTxtNote,
+    deleteNote,
+    updateNote
 }
 
 const notes = [
@@ -97,11 +100,32 @@ function getEmptyTxtNote() {
             title: '',
             txt: ''
         },
-        style: {
-            backgroundColor: "#fff",
-            color: 'black'
+        // style: {
+        //     backgroundColor: "#fff",
+        //     color: 'black'
+        // }
+    }
+}
+
+function addTxtNote(note) {
+    const newNote = {
+        type: "NoteText",
+        id: makeId(),
+
+        isPinned: false,
+        info: {
+            title: '',
+            txt: note.txt
         }
     }
+    notes.push(newNote)
+
+}
+
+function deleteNote(noteId) {
+    return Promise.resolve(getNoteById(noteId).then(currNoteIdx => {
+        notes.splice(currNoteIdx, 1)
+    }))
 }
 
 function makeId(length = 5) {
@@ -111,4 +135,16 @@ function makeId(length = 5) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
+}
+
+
+function getNoteById(noteId) {
+    return Promise.resolve(notes.findIndex(note => note.id === noteId))
+}
+
+
+function updateNote(noteId, newTxt) {
+    return Promise.resolve(getNoteById(noteId).then(currNoteIdx => {
+        notes[currNoteIdx].info.txt = newTxt;
+    }))
 }

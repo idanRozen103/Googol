@@ -2,24 +2,32 @@
     width: 700px;
     justify-content: space-between;
     margin: 50px auto;
+    border-radius: 8px;
     box-shadow: 0px 3px 13px 3px #cacacad1;
 }
 
 .notes-input-line>* {
-    border-radius: 8px;
     padding: 10px;
 }
 
 .notes-input-line * {
+    font-size: large;
     border: none;
     outline: none;
     background-color: #fff;
 }
 
-.notes-input-line input {
-    color: rgb(190, 186, 186);
-    font-size: large;
+.notes-input-line form {
     flex-grow: 1;
+    border-radius: 8px 0 0 8px;
+}
+
+.notes-input-line input{
+    color: rgb(53, 52, 52);
+}
+
+.notes-input-btns {
+    border-radius: 0 8px 8px 0;
 }
 
 .notes-input-btns>* {
@@ -31,7 +39,7 @@
     visibility: hidden;
 }
 
-i {
+.notes-input-line i, .note-preview i {
     font-size: x-large;
     color: rgb(177, 172, 172);
 }
@@ -61,18 +69,17 @@ i {
     justify-content: space-between;
     background-color: #fff;
     margin-bottom: 20px;
+    transition: .3s;
 }
 
 .note-preview i {
     font-size: 1.4rem;
-    transition: visibility 1s, opacity 0.3s;
     visibility: hidden;
     opacity: 0
 }
 
 .note-preview:hover {
-    box-shadow: 3px 6px 5px 0px #00000029;
-}
+    box-shadow: 0px 5px 8px 2px #00000029;}
 
 .note-preview:hover i {
     visibility: visible;
@@ -89,7 +96,7 @@ i {
     justify-content: space-between;
 }
 
-.note-footer i:hover{
+.note-footer .note-btns i:hover {
     cursor: pointer;
-    color:black
+    color: black
 }

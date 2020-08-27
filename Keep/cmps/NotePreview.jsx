@@ -1,7 +1,7 @@
 
 export class NotePreview extends React.Component {
     render() {
-        const { note } = this.props
+        const { note, onDeleteNote } = this.props
         function noteType() {
             switch (note.type) {
                 case 'NoteText':
@@ -35,7 +35,7 @@ export class NotePreview extends React.Component {
                         <input type="radio" id="note-clone" name="note-btn" value="note-clone" />
                         <label htmlFor="note-clone" ><i className="fas fa-clone"></i></label>
                         <input type="radio" id="note-delete" name="note-btn" value="note-delete" />
-                        <label htmlFor="note-delete" ><i className="fas fa-trash-alt"></i></label>
+                        <label htmlFor="note-delete" ><i className="fas fa-trash-alt" onClick={() => { onDeleteNote(note.id) }} ></i></label>
                     </div>
                 </div>
 
