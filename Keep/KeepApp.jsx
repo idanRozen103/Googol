@@ -1,20 +1,40 @@
 
-import { NoteTxt } from './cmps/NoteTxt.jsx'
-import { NoteImg } from './cmps/NoteImg.jsx'
-import { NoteTodos } from './cmps/NoteTodos.jsx'
+// import { NoteTxt } from './cmps/note-types/NoteTxt.jsx'
+import { NoteList } from './cmps/NoteList.jsx'
+import { keepService } from './service/keepService.js'
 
 
 export class KeepApp extends React.Component {
 
     state = {
+        notes: [],
         currView: '',
-        inputFocused: false
+        txtNoteToAdd: keepService.getEmptyTxtNote()
     }
 
+    componentDidMount() {
+        this.loadNotes()
+    }
+
+    loadNotes() {
+        keepService.query().then(notes => {
+            this.setState({ notes })
+        })
+
+    }
 
     handleInputFocus = (ev) => {
-        this.setState({ inputFocused: true })
+        this.setState({
+            txtNoteToAdd: { ...this.state.reviewToAdd, [ev.target.name]: ev.target.value }
+        })
+
     }
+
+    noteToAdd = (ev, note) => {
+        ev.preventDefault();
+        // keepService.addTxtNote(note)
+    }
+
 
     render() {
         const { currView } = this.state.currView
@@ -33,7 +53,11 @@ export class KeepApp extends React.Component {
         return (
             <React.Fragment>
                 <div className="flex notes-input-line" >
-                    <input type="text" name="" id="" placeholder="What's on your mind . . ." onClick={this.handleInputFocus} />
+                    <form hidden onSubmit={(ev) => {
+                        this.onAddReview(ev, this.state.txtNoteToAdd)
+                    }}>
+                        < input name="txt" type="text" name="" id="" placeholder="What's on your mind . . ." onClick={this.handleInputFocus} />
+                    </form>
                     <div className="notes-input-btns">
                         <input type="radio" id="text" name="input-btn" value="text" defaultChecked />
                         <label htmlFor="text" ><i className="fas fa-font"></i></label>
@@ -48,11 +72,8 @@ export class KeepApp extends React.Component {
                     </div>
                 </div >
 
-                {this.state.inputFocused && <NoteTxt />}
-                <div className="container main-notes">
-                <NoteTxt/>
-                    {/* <DynamicCmp props={} /> */}
-                </div>
+                {/* {this.state.txtNoteToAdd.length && <NoteTxt />} */}
+                <NoteList notes={this.state.notes} />
             </React.Fragment >
         )
     }

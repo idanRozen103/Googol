@@ -1,5 +1,5 @@
-import { keepService } from '../service/keepService.js'
-import { NotePreview } from './NotePreview.jsx'
+import { keepService } from '../../service/keepService.js'
+import { NotePreview } from '../NotePreview.jsx'
 
 
 

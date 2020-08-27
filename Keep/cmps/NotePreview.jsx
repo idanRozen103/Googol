@@ -1,15 +1,32 @@
 
 export class NotePreview extends React.Component {
     render() {
+        const { note } = this.props
+        function noteType() {
+            switch (note.type) {
+                case 'NoteText':
+                    return <i className="fas fa-font"></i>
+                    break;
+                case 'NoteImg':
+                    return <i className="far fa-image"></i>
+                    break;
+                case 'NoteList':
+                    return <i className="fas fa-list"></i>
+                    break;
+                case 'NoteAudio':
+                    return <i className="fas fa-volume-up"></i>
+                    break;
+                case 'NoteVideo':
+                    return <i className="fab fa-youtube"></i>
+                    break;
+            }
+        }
         return (
-            <div className="note-preview flex column">
-                {/* < textarew /> */}
-                
-                <h3>hello</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum voluptates quod, in perferendis quis labore cum expedita veniam adipisci maxime fugit quasi nam laborum totam hic sit. Dignissimos, velit similique.</p>
-
+            <React.Fragment>
+                <h3>{note.info.title}</h3>
+                <p>{note.info.txt}</p>
                 <div className="note-footer flex">
-                        <i>note type</i>
+                    {noteType()}
                     <div className="note-btns">
                         <input type="radio" id="pin" name="note-btn" value="pin" />
                         <label htmlFor="pin" ><i className="fas fa-thumbtack"></i></label>
@@ -21,7 +38,8 @@ export class NotePreview extends React.Component {
                         <label htmlFor="note-delete" ><i className="fas fa-trash-alt"></i></label>
                     </div>
                 </div>
-            </div>
+
+            </React.Fragment>
         )
     }
 }
