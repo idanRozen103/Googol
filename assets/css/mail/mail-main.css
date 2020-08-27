@@ -167,9 +167,7 @@
     overflow: hidden;
 }
 
-.mail-prev-name {
 
-}
 
 .send-mail-btn {
     position: absolute;
@@ -208,8 +206,10 @@
     /* width: 100%; */
     justify-content: space-between;
     margin: 0;
-
+    align-items: center;
 }
+
+
 
 .mail-details h1 {
     margin-top: 0;
@@ -221,6 +221,23 @@
 
 .mail-name-details {
     display: flex;
+    width: 50%;
+}
+
+.reply-btn {
+    margin-right: 1rem;
+    border: none;
+    padding: 5px;
+    outline: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    transition: .15s;
+    color: black
+}
+
+.reply-btn:hover {
+    background-color: #ddd;
 }
 
 .mail-details-body {

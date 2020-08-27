@@ -55,7 +55,7 @@ class _MailApp extends React.Component {
         
             <div className="mail-container container flex">
                 <nav className="mail-side-nav flex column">
-                    <NavLink className="compose-mail" to="/mail/compose">Compose</NavLink>
+                    <NavLink className="compose-mail" to="/mail/compose/:">Compose</NavLink>
                     <NavLink className="mail-link" to="/mail/inbox">Inbox</NavLink>
                     <NavLink className="mail-link" to="/mail/starred">Starred</NavLink>
                     <div className="mail-link">Sent Mails</div>
@@ -63,7 +63,7 @@ class _MailApp extends React.Component {
                 </nav>
                 
                 <MailList mails={this.state.mails} onStarredMail={this.onStarredMail} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead}/>
-                <Route component={MailCompose} path="/mail/compose"/>
+                <Route component={MailCompose} path="/mail/compose/:id"/>
 
             </div>
         )

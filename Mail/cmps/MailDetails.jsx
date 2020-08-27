@@ -1,4 +1,4 @@
-const { NavLink, withRouter } = ReactRouterDOM
+const { Link, withRouter } = ReactRouterDOM
 import { mailService } from '../mail-services/mailService.js'
 
 
@@ -11,11 +11,11 @@ class _MailDetails extends React.Component {
 
     componentDidMount() {
         const mailId = this.props.location.pathname.split('/')[2]
-        console.log("componentDidMount -> mailId", mailId)
         mailService.getById(mailId)
             .then((mail) => {
-                console.log("componentDidMount -> mail", mail)
                 this.setState({ mail })
+                if (mail) mailService.markRead(mail)
+                
             })
 
 
@@ -33,6 +33,8 @@ class _MailDetails extends React.Component {
                         <span>{`< ${mail.name}@mail.com >`}</span>
                     </div>
                     <div className="mail-details-time">
+                        <Link to={`/mail/compose/${mail.id}`} className="reply-btn"><i className="fas fa-reply"></i></Link>
+                        
                         <span>{new Date(mail.sentAt).toDateString()}</span>
                     </div>
 
