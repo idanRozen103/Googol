@@ -3,7 +3,12 @@ export const keepService = {
     getEmptyTxtNote,
     addTxtNote,
     deleteNote,
-    updateNote
+    updateNote,
+    getEmptyImgNote,
+    getEmptyCheckListNote,
+    getEmptyAudioNote,
+    getEmptyVideoNote
+
 }
 
 const notes = [
@@ -95,6 +100,7 @@ function query() {
 function getEmptyTxtNote() {
     return {
         type: "NoteText",
+        id: makeId(),
         isPinned: false,
         info: {
             title: '',
@@ -108,18 +114,7 @@ function getEmptyTxtNote() {
 }
 
 function addTxtNote(note) {
-    const newNote = {
-        type: "NoteText",
-        id: makeId(),
-
-        isPinned: false,
-        info: {
-            title: '',
-            txt: note.txt
-        }
-    }
-    notes.push(newNote)
-
+    notes.push(note)
 }
 
 function deleteNote(noteId) {
@@ -143,8 +138,63 @@ function getNoteById(noteId) {
 }
 
 
-function updateNote(noteId, newTxt) {
+function updateNote(noteId, newNote) {
     return Promise.resolve(getNoteById(noteId).then(currNoteIdx => {
-        notes[currNoteIdx].info.txt = newTxt;
+        notes[currNoteIdx] = newNote;
     }))
+}
+
+function getEmptyImgNote() {
+    return {
+        type: "NoteImg",
+        info: {
+            url: "",
+            title: ""
+        },
+        // style: {
+        //     backgroundColor: "#00d"
+        // }
+    }
+}
+
+function getEmptyCheckListNote() {
+    return {
+        type: "NoteCheckList",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            title: "",
+            todos: [
+                { txt: "Do that", doneAt: null },
+                { txt: "Do this", doneAt: 187111111 }
+            ]
+        }
+    }
+
+}
+
+function getEmptyVideoNote() {
+    return {
+        type: "NoteVideo",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            title: '',
+            url: ''
+        }
+    }
+}
+
+
+
+function getEmptyAudioNote() {
+    return {
+        type: "NoteAAudio",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            title: '',
+            file: ''
+        }
+    }
 }

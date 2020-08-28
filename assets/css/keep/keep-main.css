@@ -1,3 +1,6 @@
+@import './modal-note.css';
+
+
 .notes-input-line {
     width: 700px;
     justify-content: space-between;
@@ -22,8 +25,9 @@
     border-radius: 8px 0 0 8px;
 }
 
-.notes-input-line input{
+.notes-input-line input[name="txt"] {
     color: rgb(53, 52, 52);
+    width: 100%;
 }
 
 .notes-input-btns {
@@ -70,6 +74,9 @@
     background-color: #fff;
     margin-bottom: 20px;
     transition: .3s;
+    line-height: 1.25rem;
+    overflow-wrap: break-word;
+
 }
 
 .note-preview i {
@@ -79,7 +86,8 @@
 }
 
 .note-preview:hover {
-    box-shadow: 0px 5px 8px 2px #00000029;}
+    box-shadow: 0px 5px 8px 2px #00000029;
+}
 
 .note-preview:hover i {
     visibility: visible;
@@ -99,4 +107,9 @@
 .note-footer .note-btns i:hover {
     cursor: pointer;
     color: black
+}
+
+.note-modal-txt {
+    width: 100%;
+    resize: none;
 }
