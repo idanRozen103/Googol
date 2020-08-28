@@ -12,7 +12,7 @@ class _MailPreview extends React.Component {
 
 
     getBodyStyle() {
-        let fontWeight = (!this.props.mail.isRead) ? '800' : '250'
+        let fontWeight = (!this.props.mail.isRead) ? '800' : '330'
         return { 'fontWeight': fontWeight }
 
     }
@@ -26,7 +26,7 @@ class _MailPreview extends React.Component {
 
 
             <div style={this.getBodyStyle()} className={`mail-prev flex`}>
-
+                
                 <div onClick={(ev) => {
                     this.props.onStarredMail(ev, mail)
                 }} className="star-btn">
@@ -37,7 +37,7 @@ class _MailPreview extends React.Component {
                 <Link to={`/mail/${mail.id}`} className="mail-prev-navlink">
 
 
-        <div className="mail-prev-name">
+                    <div className="mail-prev-name">
                         <span className="name-span">{mail.name}</span>
                     </div>
 
@@ -46,11 +46,11 @@ class _MailPreview extends React.Component {
                     -<span className="mail-preb-body">{mail.body}</span>
                     </div>
 
-                    
+
                 </Link>
                 <div className="mail-prev-time">
-                        <span>{mailService.getFormatTime(mail.sentAt)}</span>
-                    </div>
+                    <span>{mailService.getFormatTime(mail.sentAt)}</span>
+                </div>
                 <section className="mail-edit-btns">
                     <button onClick={() => {
                         this.props.onMarkRead(mail)

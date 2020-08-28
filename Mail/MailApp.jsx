@@ -4,6 +4,7 @@ import { mailService } from './mail-services/mailService.js'
 import { MailList } from './cmps/MailList.jsx'
 import { MailCompose } from './cmps/MailCompose.jsx'
 import { MailFilter } from './cmps/MailFilter.jsx'
+import { eventBus } from '../services/eventBusService.js'
 
 
 
@@ -15,17 +16,25 @@ class _MailApp extends React.Component {
         inMails: [],
         sentMails: [],
         filterText: '',
-        filterOption: ''
+        filterOption: '',
+        sortBy: ''
     }
 
     componentDidMount() {
-        this.loadMails()
+        mailService.query()
+            .then(({ inMails, sentMails }) => {
+                inMails = this.sortByUnread(inMails)
+                sentMails = this.sortByUnread(sentMails)
+                this.setState({ inMails, sentMails })
+            })
+
 
     }
 
 
     clearFilters = () => {
         this.setState({ filterText: '', filterOption: 'all' })
+        eventBus.emit('routeChange')
     }
 
 
@@ -52,15 +61,6 @@ class _MailApp extends React.Component {
         return urlSearchStr
     }
 
-    // setMailsForDisplay() {
-    //     const inMails = this.state.inMails.filter(mail => {
-    //         const isSubInclude = mail.subject.toLowerCase().includes(filterText.toLowerCase())
-    //         return isSubInclude
-    //     })
-
-    //     // const sentMails = this.state.sentMails.filter(book => book.title.toLowerCase().includes(this.state.filterByTxt.toLowerCase()))
-    //     this.setState({inMails})
-    // }
 
     getFilteredMails = (mails) => {
         const filterText = new URLSearchParams(this.props.location.search).get('filterText') || ''
@@ -80,12 +80,17 @@ class _MailApp extends React.Component {
         return txtOptionFilterMails
     }
 
-
+    sortByUnread(mails) {
+        mails.sort((mail1, mail2) => {
+            if (!mail1.isRead) return -1
+            else return 1
+        })
+        return mails
+    }
 
     loadMails() {
         mailService.query()
             .then(({ inMails, sentMails }) => {
-                console.log("loadMails -> sentMails", sentMails)
                 this.setState({ inMails, sentMails })
             })
     }
@@ -110,9 +115,30 @@ class _MailApp extends React.Component {
             })
     }
 
+    onSortMail = (ev) => {
+        this.setState({ sortBy: ev.target.value })
+    }
+
+    getSortedMails = (mails) => {
+        const { sortBy } = this.state
+        if (sortBy === 'title') {
+            mails.sort((mail1, mail2) => {
+                return mail1.subject.localeCompare(mail2.subject)
+            })
+        } else if (sortBy === 'date') {
+            mails.sort((mail1, mail2) => {
+                return mail2.sentAt - mail1.sentAt
+            })
+
+        } else if (sortBy === "unread") {
+            this.sortByUnread(mails)
+        }
+        return mails
+    }
+
     render() {
-        const inMails = this.getFilteredMails(this.state.inMails)
-        const sentMails = this.getFilteredMails(this.state.sentMails)
+        const inMails = this.getSortedMails(this.getFilteredMails(this.state.inMails))
+        const sentMails = this.getSortedMails(this.getFilteredMails(this.state.sentMails))
         if (!inMails) return <div>Loading...</div>
         return (
             <React.Fragment>
@@ -120,12 +146,24 @@ class _MailApp extends React.Component {
                 <div className="mail-search">
                     <MailFilter location={this.props.location} onFilter={this.setFilter} />
                 </div>
+                <div className="sort-mail-container flex container">
+                    <div className="flex column">
+                        <select defaultValue="" onChange={this.onSortMail} required className="sort-mail" name="" id="sort-mail">
+                            <option value="" disabled hidden >Sort By</option>
+                            <option value="unread">Unread</option>
+                            <option value="title">Title</option>
+                            <option value="date">Date</option>
+                        </select>
+
+                    </div>
+                    {/* <button className="sort-mail-title">Sort By title</button> */}
+                </div>
                 <div className="mail-container container flex">
                     <nav className="mail-side-nav flex column">
-                        <NavLink className="compose-mail" to="/mail/compose/:">Compose</NavLink>
+                        <NavLink onClick={this.clearFilters} className="compose-mail" to="/mail/compose/:">Compose</NavLink>
                         <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/inbox/">Inbox</NavLink>
-                        <NavLink className="mail-link" to="/mail/starred">Starred</NavLink>
-                        <NavLink className="mail-link" to="/mail/sentMails">Sent Mails</NavLink>
+                        <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/starred">Starred</NavLink>
+                        <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/sentMails">Sent Mails</NavLink>
 
                         <div className="mail-link">Drafts</div>
                     </nav>

@@ -1,6 +1,4 @@
 @import './modal-note.css';
-
-
 .notes-input-line {
     width: 700px;
     justify-content: space-between;
@@ -30,6 +28,10 @@
     width: 100%;
 }
 
+input {
+    cursor: text;
+}
+
 .notes-input-btns {
     border-radius: 0 8px 8px 0;
 }
@@ -45,7 +47,7 @@
 
 .notes-input-line i, .note-preview i {
     font-size: x-large;
-    color: rgb(177, 172, 172);
+    color: rgb(156, 152, 152)
 }
 
 .notes-input-btns i:hover {
@@ -73,16 +75,15 @@
     justify-content: space-between;
     background-color: #fff;
     margin-bottom: 20px;
-    transition: .3s;
+    transition: all .3s ease-out;
     line-height: 1.25rem;
     overflow-wrap: break-word;
-
 }
 
 .note-preview i {
     font-size: 1.4rem;
     visibility: hidden;
-    opacity: 0
+    opacity: 0;
 }
 
 .note-preview:hover {
@@ -94,8 +95,9 @@
     opacity: 1
 }
 
-.note-preview>* {
+.note-preview>*:not(:last-child) {
     margin-block-start: 0;
+    cursor: pointer;
 }
 
 .note-footer {
@@ -112,4 +114,33 @@
 .note-modal-txt {
     width: 100%;
     resize: none;
+}
+
+.colors-container {
+    /* height: fit-content; */
+    width: 199px;
+    box-shadow: 2px 5px 11px #00000030;
+    justify-content: space-evenly;
+    background-color: #fffefe;
+    position: absolute;
+    padding: 10px;
+    z-index: 2;
+    border-radius: 3px;
+    bottom: 49px;
+    flex-wrap: wrap;
+    right: 10%;
+    margin-bottom: 5px;
+}
+
+.colors-container button {
+    height: 30px;
+    width: 30px;
+    margin: 3px;
+    border-radius: 100px;
+    border: 1px solid #d6d4d486;
+    box-shadow: inset 0 0px 1px 1px #f5f1f16b;
+}
+
+.black{
+    color:black
 }

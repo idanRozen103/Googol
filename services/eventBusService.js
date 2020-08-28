@@ -13,4 +13,4 @@ function emit(eventName, data) {
 }
 
 
-export default { on, emit }
+export const eventBus = { on, emit }

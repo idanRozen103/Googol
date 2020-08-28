@@ -26,7 +26,7 @@ export class MailList extends React.Component {
                         <MailStarred onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
                     </Route>
                     <Route path="/mail/:id">
-                        <MailDetails/>
+                        <MailDetails onStarredMail={this.props.onStarredMail}/>
                     </Route>
                 </Switch>
             </Router>

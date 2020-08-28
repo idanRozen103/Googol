@@ -1,27 +1,44 @@
 
 // import eventBusService from "../services/eventBusService";
+import {eventBus} from '../../services/eventBusService.js'
+
 const { withRouter } = ReactRouterDOM
 
 class _MailFilter extends React.Component {
 
+    closeEventBus;
+
     state = {
         filterText: '',
         filterOption: ''
+
     }
 
     componentDidMount() {
-        // console.log(this.props.location);
         this.loadFilters()
+        this.closeEventBus = eventBus.on('routeChange', () => {
+            this.setState({filterText: '', filterOption: 'all'})
+        })
     }
+
+    componentWillUnmount () {
+        this.closeEventBus()
+    }
+    
     
     loadFilters() {
         const searchParams= new URLSearchParams(this.props.location.search)
+        
         const filterText = searchParams.get('filterText') || ''
         const filterOption = searchParams.get('filterOption') || ''
         this.setState({ filterText, filterOption}, () => {
             this.props.onFilter(filterText, 'filterText')
             this.props.onFilter(filterOption, 'filterOption')
         })
+    }
+
+    clearFilters = () => {
+        this.setState({ filterText: '', filterOption: 'all' })
     }
 
     

@@ -11,7 +11,8 @@ export const mailService = {
     deleteMail,
     markRead,
     starMail,
-    getById
+    getById,
+    markUnRead
 }
 
 var inMails = _getInMails(10)
@@ -28,7 +29,8 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
         isRead: false,
         sentAt: Date.now(),
         isStarred: false,
-        isSent: false
+        isSent: false,
+        color: getRandomColor()
     }
     return mail
 }
@@ -83,6 +85,7 @@ function addMail({ to, subject, body }) {
 
 function deleteMail(mailToDelete) {
     inMails = inMails.filter((mail) => mail.id !== mailToDelete.id)
+    sentMails = sentMails.filter((mail) => mail.id !== mailToDelete.id)
     storageService.save(IN_MAIL_KEY, inMails)
     storageService.save(SENT_MAIL_KEY, sentMails)
 
@@ -96,6 +99,16 @@ function markRead(mailToMark) {
     return Promise.resolve(true)
     
 }
+
+function markUnRead(mailToMark) {
+    mailToMark.isRead = true
+    storageService.save(IN_MAIL_KEY, inMails)
+    storageService.save(SENT_MAIL_KEY, sentMails)
+
+    return Promise.resolve(true)
+    
+}
+
 
 function starMail(mail) {
     mail.isStarred = !mail.isStarred
@@ -126,3 +139,12 @@ function get2DigTime(num) {
     return num
 }
 
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
