@@ -11,9 +11,6 @@ export class MailList extends React.Component {
 
 
     render() {
-        console.log(this.props);
-
-
 
         return (
             // <NavLink to="mail/inbox"></NavLink>

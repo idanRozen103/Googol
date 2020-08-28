@@ -20,15 +20,14 @@ class _MailApp extends React.Component {
 
     componentDidMount() {
         this.loadMails()
-        
+
     }
 
-    
+
     clearFilters = () => {
-        console.log('heyyy');
-        this.setState({filterText: '', filterOption: 'all'})
-    }   
-    
+        this.setState({ filterText: '', filterOption: 'all' })
+    }
+
 
     setFilter = (val, filterBy) => {
         const { location } = this.props
@@ -36,7 +35,6 @@ class _MailApp extends React.Component {
         val = +val || val
         const pathName = location.pathname
         let urlSearch = this.getUrlSearchStr(location, val, filterBy)
-        this.setState({ [filterBy]: val }, console.log('state', this.state))
         this.props.history.push(`${pathName}?${urlSearch}`)
     }
 
@@ -59,11 +57,11 @@ class _MailApp extends React.Component {
     //         const isSubInclude = mail.subject.toLowerCase().includes(filterText.toLowerCase())
     //         return isSubInclude
     //     })
-        
+
     //     // const sentMails = this.state.sentMails.filter(book => book.title.toLowerCase().includes(this.state.filterByTxt.toLowerCase()))
     //     this.setState({inMails})
     // }
-  
+
     getFilteredMails = (mails) => {
         const filterText = new URLSearchParams(this.props.location.search).get('filterText') || ''
         const filterOption = new URLSearchParams(this.props.location.search).get('filterOption') || ''
@@ -74,7 +72,7 @@ class _MailApp extends React.Component {
         })
 
         const txtOptionFilterMails = txtFilterMails.filter(mail => {
-            if ( !filterOption || filterOption === 'all') return true
+            if (!filterOption || filterOption === 'all') return true
             else if (filterOption === 'read' && mail.isRead) return true
             else if (filterOption === 'unread' && !mail.isRead) return true
             else return false
@@ -87,7 +85,7 @@ class _MailApp extends React.Component {
     loadMails() {
         mailService.query()
             .then(({ inMails, sentMails }) => {
-                
+                console.log("loadMails -> sentMails", sentMails)
                 this.setState({ inMails, sentMails })
             })
     }
@@ -115,7 +113,7 @@ class _MailApp extends React.Component {
     render() {
         const inMails = this.getFilteredMails(this.state.inMails)
         const sentMails = this.getFilteredMails(this.state.sentMails)
-        if (!inMails ) return <div>Loading...</div>
+        if (!inMails) return <div>Loading...</div>
         return (
             <React.Fragment>
 
@@ -124,8 +122,8 @@ class _MailApp extends React.Component {
                 </div>
                 <div className="mail-container container flex">
                     <nav className="mail-side-nav flex column">
-                        <NavLink onClick={this.clearFilters} className="compose-mail" to="/mail/compose/:">Compose</NavLink>
-                        <NavLink className="mail-link" to="/mail/inbox/">Inbox</NavLink>
+                        <NavLink className="compose-mail" to="/mail/compose/:">Compose</NavLink>
+                        <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/inbox/">Inbox</NavLink>
                         <NavLink className="mail-link" to="/mail/starred">Starred</NavLink>
                         <NavLink className="mail-link" to="/mail/sentMails">Sent Mails</NavLink>
 

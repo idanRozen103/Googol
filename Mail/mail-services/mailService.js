@@ -49,12 +49,14 @@ function _getInMails(num) {
     }
     return _inMails
 }
-localStorage.clear()
 
 function _getSentMails() {
     var _sentMails = storageService.load(SENT_MAIL_KEY)
-    _sentMails = _sentMails || [createMail('Video kills', 'did video killed a radio star?', 'ooo-wa-ooo')]
-    storageService.save(SENT_MAIL_KEY, sentMails)
+    if (!_sentMails) {
+        _sentMails = [createMail('Video kills', 'did video killed a radio star?', 'ooo-wa-ooo')]
+    } 
+
+    storageService.save(SENT_MAIL_KEY, _sentMails)
 
     return _sentMails
 }
