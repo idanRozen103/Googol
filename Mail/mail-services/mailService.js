@@ -34,7 +34,7 @@ localStorage.clear()
 
 function _createMails(num) {
     var _mails = storageService.load(MAIL_KEY)
-    if (!_mails) {
+    if (!_mails || !_mails.length) {
         _mails = []
         for (let i = 0; i < num; i++) {
             _mails.push(createMail())
