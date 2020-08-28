@@ -7,7 +7,10 @@ export const keepService = {
     getEmptyImgNote,
     getEmptyCheckListNote,
     getEmptyAudioNote,
-    getEmptyVideoNote
+    getEmptyVideoNote,
+    changeNoteBGC,
+    copyNote,
+    pinNote
 
 }
 
@@ -18,7 +21,10 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note4',
-            txt: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur"
+            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur"
+        },
+        style: {
+            backgroundColor: "#fdcfe8",
         }
     },
     {
@@ -27,7 +33,10 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note1',
-            txt: "Fullstack Me Baby!"
+            text: "Fullstack Me Baby!"
+        },
+        style: {
+            backgroundColor: "#fff",
         }
     },
     {
@@ -36,7 +45,10 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note5',
-            txt: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibusLorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibusLorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+        },
+        style: {
+            backgroundColor: "#f28b82",
         }
     },
     {
@@ -45,7 +57,10 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note2',
-            txt: "Fullstack Me Baby!"
+            text: "Fullstack Me Baby!"
+        },
+        style: {
+            backgroundColor: "#c4fd82",
         }
     },
     {
@@ -54,7 +69,10 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note3',
-            txt: "Fullstack Me Baby!"
+            text: "Fullstack Me Baby!"
+        },
+        style: {
+            backgroundColor: "#d7aefb",
         }
     },
 
@@ -65,7 +83,36 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note6',
-            txt: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+        },
+        style: {
+            backgroundColor: "#8bccff",
+        }
+    },
+
+    {
+        type: "NoteImg",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: 'note6',
+            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+        },
+        style: {
+            backgroundColor: "#ffc107",
+        }
+    },
+
+    {
+        type: "NoteImg",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: 'note6',
+            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+        },
+        style: {
+            backgroundColor: "#ffee58fa",
         }
     },
     // {
@@ -83,8 +130,8 @@ const notes = [
     //     info: {
     //         label: "How was it:",
     //         todos: [
-    //             { txt: "Do that", doneAt: null },
-    //             { txt: "Do this", doneAt: 187111111 }
+    //             { text: "Do that", doneAt: null },
+    //             { text: "Do this", doneAt: 187111111 }
     //         ]
     //     }
     // }
@@ -97,24 +144,9 @@ function query() {
 }
 
 
-function getEmptyTxtNote() {
-    return {
-        type: "NoteText",
-        id: makeId(),
-        isPinned: false,
-        info: {
-            title: '',
-            txt: ''
-        },
-        // style: {
-        //     backgroundColor: "#fff",
-        //     color: 'black'
-        // }
-    }
-}
 
 function addTxtNote(note) {
-    notes.push(note)
+    notes.unshift(note)
 }
 
 function deleteNote(noteId) {
@@ -144,16 +176,34 @@ function updateNote(noteId, newNote) {
     }))
 }
 
+
+
+function getEmptyTxtNote() {
+    return {
+        type: "NoteText",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            title: '',
+            text: ''
+        },
+        style: {
+            backgroundColor: "#efefef",
+        }
+    }
+}
+
 function getEmptyImgNote() {
     return {
         type: "NoteImg",
+        id: makeId(),
         info: {
             url: "",
             title: ""
         },
-        // style: {
-        //     backgroundColor: "#00d"
-        // }
+        style: {
+            backgroundColor: "#00d"
+        }
     }
 }
 
@@ -165,9 +215,12 @@ function getEmptyCheckListNote() {
         info: {
             title: "",
             todos: [
-                { txt: "Do that", doneAt: null },
-                { txt: "Do this", doneAt: 187111111 }
+                { text: "Do that", doneAt: null },
+                { text: "Do this", doneAt: 187111111 }
             ]
+        },
+        style: {
+            backgroundColor: "#00d"
         }
     }
 
@@ -181,11 +234,12 @@ function getEmptyVideoNote() {
         info: {
             title: '',
             url: ''
+        },
+        style: {
+            backgroundColor: "#00d"
         }
     }
 }
-
-
 
 function getEmptyAudioNote() {
     return {
@@ -195,6 +249,29 @@ function getEmptyAudioNote() {
         info: {
             title: '',
             file: ''
+        },
+        style: {
+            backgroundColor: "#00d"
         }
     }
+}
+
+function changeNoteBGC(noteId, color) {
+    let currNoteIdx = getNoteIdx(noteId)
+    notes[currNoteIdx].style = { backgroundColor: color }
+}
+
+function getNoteIdx(id) {
+    return notes.findIndex(note => note.id === id)
+}
+
+function copyNote(note) {
+    const noteToCopy = { ...note, id: makeId() }
+    notes.unshift(noteToCopy)
+    return Promise.resolve()
+}
+
+function pinNote(noteId) {
+    let currNoteIdx = getNoteIdx(noteId)
+    notes[currNoteIdx].isPinned = !notes[currNoteIdx].isPinned;
 }

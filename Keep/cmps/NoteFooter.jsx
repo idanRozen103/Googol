@@ -1,28 +1,39 @@
-
+import { ColorPalette } from './ColorPalette.jsx'
 export class NoteFooter extends React.Component {
+
+
+    state = {
+        isColorOpen: false,
+    }
 
     componentDidMount = () => {
     }
 
+    onOpenColors = (ev) => {
+        ev.preventDefault()
+        this.setState({ isColorOpen: true })
+
+    }
+
+    closeColors = () => {
+        this.setState({ isColorOpen: false })
+    }
+
     render() {
-        const { note, onDeleteNote } = this.props
+        const { note, onDeleteNote, onChangeNoteBGC, onCopyNote, onPinNote } = this.props
+        const colorClass = note.isPinned ? 'black' : '';
         function noteType() {
             switch (note.type) {
                 case 'NoteText':
                     return <i className="fas fa-font"></i>
-                    break;
                 case 'NoteImg':
                     return <i className="far fa-image"></i>
-                    break;
                 case 'NoteList':
                     return <i className="fas fa-list"></i>
-                    break;
                 case 'NoteAudio':
                     return <i className="fas fa-volume-up"></i>
-                    break;
                 case 'NoteVideo':
                     return <i className="fab fa-youtube"></i>
-                    break;
             }
         }
         return (
@@ -30,15 +41,19 @@ export class NoteFooter extends React.Component {
                 {noteType()}
                 <div className="note-btns">
                     <input type="radio" id="pin" name="note-btn" value="pin" />
-                    <label htmlFor="pin" ><i className="fas fa-thumbtack"></i></label>
+                    <label htmlFor="pin"><i className={`fas fa-thumbtack + ${colorClass}`} onClick={(ev) => { ev.stopPropagation(); onPinNote(ev, note.id) }}></i></label>
                     <input type="radio" id="edit" name="note-btn" value="edit" />
-                    <label htmlFor="edit" ><i className="fas fa-palette"></i></label>
+                    <label htmlFor="edit" ><i className="fas fa-palette" onClick={(ev) => {
+                        ev.stopPropagation()
+                        this.onOpenColors(ev)
+                    }}></i></label>
                     <input type="radio" id="note-clone" name="note-btn" value="note-clone" />
-                    <label htmlFor="note-clone" ><i className="fas fa-clone"></i></label>
+                    <label htmlFor="note-clone" ><i className="fas fa-clone" onClick={(ev) => { ev.stopPropagation(); onCopyNote(ev, note) }}></i></label>
                     <input type="radio" id="note-delete" name="note-btn" value="note-delete" />
                     <label htmlFor="note-delete" ><i className="fas fa-trash-alt" onClick={(ev) => { onDeleteNote(ev, note.id) }} ></i></label>
-                </div>
-            </div>
+                    {this.state.isColorOpen && <ColorPalette onChangeNoteBGC={onChangeNoteBGC} note={note} closeColors={this.closeColors} />}
+                </div >
+            </div >
         )
     }
 }

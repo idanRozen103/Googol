@@ -7,14 +7,18 @@ export class NoteModal extends React.Component {
     state = {
         noteToUpdate: ''
     }
-
     elInput = React.createRef()
 
 
     componentDidMount = () => {
-        console.log(this.props);
-        this.setState({ noteToUpdate: this.props.note }, () => console.log(this.state))
+        this.setState({ noteToUpdate: this.props.note })
+    }
 
+    checkKeyCode = (ev) => {
+        if (ev.keyCode === 27) {
+            this.props.onUpdateNote(this.props.note.id, this.state.noteToUpdate)
+            this.props.closeModal()
+        }
     }
 
     onInputChange = (ev) => {
@@ -27,18 +31,18 @@ export class NoteModal extends React.Component {
     }
 
     render() {
-        const { note, closeModal, onDeleteNote } = this.props
+        const { note, closeModal, onDeleteNote, onChangeNoteBGC, onCopyNote, onUpdateNote, onPinNote } = this.props
         if (!this.state.noteToUpdate.info) return 'loading note'
 
         return (
-            <div className='note-modal-wrapper' onClick={() => closeModal(note.id, this.state.noteToUpdate)} >
-                <div className="note-modal-content note-preview" onClick={(ev) => ev.stopPropagation()}>
-                    <button onClick={() => closeModal(note.id, this.state.noteToUpdate)}>X</button>
+            <div className='note-modal-wrapper' onKeyDown={this.checkKeyCode} onClick={() => { closeModal(); onUpdateNote(note.id, this.state.noteToUpdate) }} >
+                <div className="note-modal-content note-preview flex column" style={note.style} onClick={(ev) => ev.stopPropagation()}>
+                    <button className="close-note-modal" onClick={() => { closeModal(); onUpdateNote(note.id, this.state.noteToUpdate) }}>X</button>
                     <React.Fragment>
-                        <input type="text" name="title" placeholder="Enter note title" onChange={this.onInputChange} value={this.state.noteToUpdate.info.title} />
-                        <textarea rows="10"  autoFocus className="note-modal-txt" ref={this.elInput} type="textarea" name="txt" value={this.state.noteToUpdate.info.txt} onChange={this.onInputChange} />
-                        <NoteFooter onDeleteNote={onDeleteNote} note={note} />
-                     </React.Fragment>
+                        <input type="text" style={note.style} name="title" placeholder="Enter note title" onChange={this.onInputChange} value={this.state.noteToUpdate.info.title} />
+                        <textarea rows="15" style={note.style} autoFocus className="note-modal-txt" ref={this.elInput} type="textarea" name="text" value={this.state.noteToUpdate.info.text} onChange={this.onInputChange} />
+                        <NoteFooter onPinNote={onPinNote} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} note={note} onChangeNoteBGC={onChangeNoteBGC} />
+                    </React.Fragment>
                 </div>
             </div >
         )

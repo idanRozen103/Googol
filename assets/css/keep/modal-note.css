@@ -8,7 +8,8 @@
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 5;}
+    z-index: 5;
+}
 
 .note-modal-content {
     padding: 20px;
@@ -16,16 +17,49 @@
     width: 600px;
     min-height: 400px;
     position: relative;
-    border:none
+    border: none
 }
 
-
-.note-modal-content .note-footer i{
+.note-modal-content .note-footer i {
     visibility: visible;
     opacity: 1;
 }
 
-.note-modal-content *{
+.note-modal-content * {
     outline: none;
     border: none;
+}
+
+.note-modal-content input {
+    padding: 6px 0;
+    
+}
+
+.note-modal-content input[name="title"] {
+    width: 90%;
+    border-bottom: 1px solid #d2cacad1;
+}
+
+.close-note-modal {
+    display: inline-block;
+    position: absolute;
+    right: 2%;
+    align-self: flex-end;
+    margin: 10px;
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(58, 58, 57);
+    border: 1px solid #a990ca6b;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #efe5efbf;
+    ;
+    width: 23px;
+    box-shadow: 0px 1px 6px 0px #00000030;
+}
+
+.close-note-modal:hover {
+    background-color: #bd9ce5;
+    color: white;
+    box-shadow: 1px 9px 7px 0px #c5bdbd;
 }
