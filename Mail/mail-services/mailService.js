@@ -117,7 +117,6 @@ function getFormatTime(unFormatTime) {
         const month = sentTime.toLocaleString('default', { month: 'short' });
         const day = sentTime.getDate()
         return `${month} ${day}`
-        // console.log(month);
     }
 
 }
