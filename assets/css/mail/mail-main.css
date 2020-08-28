@@ -14,7 +14,14 @@
     font-weight: 700;
 }
 
+.mail-search {
+    width: 100px;
+    margin: 2rem auto;
+}
 
+.filter-nav {
+    display: flex;
+}
 
 .compose-mail {
     text-decoration: none;
@@ -60,6 +67,7 @@
 .mail-prev {
     position: relative;
     margin: 0 auto;
+    
     padding: 1.1rem;
     transition: background-color 0.2s;
     cursor: pointer;
@@ -70,9 +78,12 @@
     color: black !important;
     /* flex-grow: 1; */
     width: 150%;
+    height: 1rem;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .star-btn {
@@ -86,12 +97,18 @@
     /* align-self: flex-end; */
 }
 .mail-prev-navlink > * {
-    margin: 0 5%;
+    margin: 0 3%;
     padding: 10px 0;
 }
 
+.mail-prev-name {
+    width: 50%;
+    padding: 0;
+    height: 1rem;
+}
+
 .mail-prev > *:not(:first-child){
-    margin-left: 10%;
+    margin-left: 7%;
     
     display: flex;
 }
@@ -138,7 +155,7 @@
     position: absolute;
     visibility: hidden;
     right: 0%;
-    top: 36%;
+    top: 32%;
     /* right: 1%; */
 }
 .mail-edit-btns button {
@@ -157,11 +174,11 @@
 }
 
 .mail-prev-text {
+    width: 100%;
+    margin-left: 10% ;
+    padding: 0 !important;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    width: 100%;
-    padding: 0 !important;
-    margin-left: 10% ;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -263,4 +280,9 @@ i.mail-icon {
     font-weight: 400 !important
 }
 
+
+.name-span {
+    height: 10px;
+    overflow: hidden;
+}
 
