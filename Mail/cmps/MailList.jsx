@@ -11,6 +11,7 @@ export class MailList extends React.Component {
 
 
     render() {
+        console.log(this.props);
 
 
 
@@ -19,7 +20,7 @@ export class MailList extends React.Component {
             <Router>
                 <Switch>
                     <Route path="/mail/inbox/">
-                        <MailInbox onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
+                        <MailInbox clearFilters={this.props.clearFilters} onStarredMail={this.props.onStarredMail} mails={this.props.mails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />
                     </Route>
                     <Route path="/mail/sentMails">
                         <SentMails onStarredMail={this.props.onStarredMail} sentMails={this.props.sentMails} onDeleteMail={this.props.onDeleteMail} onMarkRead={this.props.onMarkRead} />

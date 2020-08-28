@@ -23,6 +23,12 @@ class _MailApp extends React.Component {
         
     }
 
+    
+    clearFilters = () => {
+        console.log('heyyy');
+        this.setState({filterText: '', filterOption: 'all'})
+    }   
+    
 
     setFilter = (val, filterBy) => {
         const { location } = this.props
@@ -48,23 +54,32 @@ class _MailApp extends React.Component {
         return urlSearchStr
     }
 
-    setMailsForDisplay() {
-        const inMails = this.state.inMails.filter(mail => {
-            console.log(mail.subject);
-            // console.log(filterText);
-            const isSubInclude = mail.subject.toLowerCase().includes(filterText.toLowerCase())
-            return isSubInclude
-        })
+    // setMailsForDisplay() {
+    //     const inMails = this.state.inMails.filter(mail => {
+    //         const isSubInclude = mail.subject.toLowerCase().includes(filterText.toLowerCase())
+    //         return isSubInclude
+    //     })
         
-        // const sentMails = this.state.sentMails.filter(book => book.title.toLowerCase().includes(this.state.filterByTxt.toLowerCase()))
-        this.setState({inMails})
-    }
+    //     // const sentMails = this.state.sentMails.filter(book => book.title.toLowerCase().includes(this.state.filterByTxt.toLowerCase()))
+    //     this.setState({inMails})
+    // }
   
-    getFilteredMails = () => {
+    getFilteredMails = (mails) => {
         const filterText = new URLSearchParams(this.props.location.search).get('filterText') || ''
         const filterOption = new URLSearchParams(this.props.location.search).get('filterOption') || ''
-        const inMails = this.state.inMails.filter(mail => mail.subject.toLowerCase().includes(filterText.toLowerCase()))
-        return inMails
+        const txtFilterMails = mails.filter((mail) => {
+            return mail.subject.toLowerCase().includes(filterText.toLowerCase())
+                || mail.body.toLowerCase().includes(filterText.toLowerCase())
+                || mail.name.toLowerCase().includes(filterText.toLowerCase())
+        })
+
+        const txtOptionFilterMails = txtFilterMails.filter(mail => {
+            if ( !filterOption || filterOption === 'all') return true
+            else if (filterOption === 'read' && mail.isRead) return true
+            else if (filterOption === 'unread' && !mail.isRead) return true
+            else return false
+        })
+        return txtOptionFilterMails
     }
 
 
@@ -73,7 +88,7 @@ class _MailApp extends React.Component {
         mailService.query()
             .then(({ inMails, sentMails }) => {
                 
-                this.setState({ inMails, sentMails }, this.setMailsForDisplay())
+                this.setState({ inMails, sentMails })
             })
     }
 
@@ -98,7 +113,8 @@ class _MailApp extends React.Component {
     }
 
     render() {
-        const  inMails  = this.getFilteredMails()
+        const inMails = this.getFilteredMails(this.state.inMails)
+        const sentMails = this.getFilteredMails(this.state.sentMails)
         if (!inMails ) return <div>Loading...</div>
         return (
             <React.Fragment>
@@ -108,7 +124,7 @@ class _MailApp extends React.Component {
                 </div>
                 <div className="mail-container container flex">
                     <nav className="mail-side-nav flex column">
-                        <NavLink className="compose-mail" to="/mail/compose/:">Compose</NavLink>
+                        <NavLink onClick={this.clearFilters} className="compose-mail" to="/mail/compose/:">Compose</NavLink>
                         <NavLink className="mail-link" to="/mail/inbox/">Inbox</NavLink>
                         <NavLink className="mail-link" to="/mail/starred">Starred</NavLink>
                         <NavLink className="mail-link" to="/mail/sentMails">Sent Mails</NavLink>
@@ -116,7 +132,7 @@ class _MailApp extends React.Component {
                         <div className="mail-link">Drafts</div>
                     </nav>
 
-                    <MailList sentMails={this.state.sentMails} mails={inMails} onStarredMail={this.onStarredMail} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead} />
+                    <MailList clearFilters={this.clearFilters} sentMails={sentMails} mails={inMails} onStarredMail={this.onStarredMail} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead} />
                     <Route component={MailCompose} path="/mail/compose/:id" />
 
                 </div>
