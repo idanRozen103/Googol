@@ -1,4 +1,4 @@
-const { NavLink, withRouter } = ReactRouterDOM
+const { NavLink, withRouter, Link } = ReactRouterDOM
 
 import { mailService } from '../mail-services/mailService.js'
 
@@ -34,11 +34,11 @@ class _MailPreview extends React.Component {
                     {mail.isStarred && <i className="mail-icon fas fa-star"></i>}
                 </div>
 
-                <NavLink to={`/mail/${mail.id}`} className="mail-prev-navlink">
+                <Link to={`/mail/${mail.id}`} className="mail-prev-navlink">
 
 
-                    <div className="mail-prev-name">
-                        <span>{mail.name}</span>
+        <div className="mail-prev-name">
+                        <span className="name-span">{mail.name}</span>
                     </div>
 
                     <div className="mail-prev-text">
@@ -47,7 +47,7 @@ class _MailPreview extends React.Component {
                     </div>
 
                     
-                </NavLink>
+                </Link>
                 <div className="mail-prev-time">
                         <span>{mailService.getFormatTime(mail.sentAt)}</span>
                     </div>

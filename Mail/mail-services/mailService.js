@@ -1,4 +1,8 @@
 import { utils } from '../mail-services/mailUtils.js'
+import {storageService} from '../../services/StorageService.js'
+
+const IN_MAIL_KEY ="IN_MAIL"
+const SENT_MAIL_KEY ="SENT_MAIL"
 
 export const mailService = {
     query,
@@ -10,9 +14,10 @@ export const mailService = {
     getById
 }
 
-var mails = _createMails(10)
+var inMails = _getInMails(10)
+var sentMails = _getSentMails()
 
-window.theMails = mails
+window.theMails = inMails
 
 function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
     const mail = {
@@ -22,46 +27,85 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
         body,
         isRead: false,
         sentAt: Date.now(),
-        isStarred: false
+        isStarred: false,
+        isSent: false
     }
     return mail
 }
 
-function _createMails(num) {
-    const _mails = []
-    for (let i = 0; i < num; i++) {
-        _mails.push(createMail())
+function query() {
+    return Promise.resolve({inMails, sentMails})
+}
+
+
+function _getInMails(num) {
+    var _inMails = storageService.load(IN_MAIL_KEY)
+    if (!_inMails || !_inMails.length) {
+        _inMails = []
+        for (let i = 0; i < num; i++) {
+            _inMails.push(createMail())
+        }
+        storageService.save(IN_MAIL_KEY, _inMails)
     }
-    return _mails
+    return _inMails
+}
+
+function _getSentMails() {
+    var _sentMails = storageService.load(SENT_MAIL_KEY)
+    if (!_sentMails) {
+        _sentMails = [createMail('Video kills', 'did video killed a radio star?', 'ooo-wa-ooo')]
+    } 
+
+    storageService.save(SENT_MAIL_KEY, _sentMails)
+
+    return _sentMails
 }
 
 
 function getById(mailId) {
-    const mail = mails.find(mail => mail.id === mailId)
+    
+    var mail = inMails.find(mail => mail.id === mailId)
+    if (!mail) {
+        mail = sentMails.find(mail => mail.id === mailId)
+    }
   
     return Promise.resolve(mail)
 }
 
 function addMail({ to, subject, body }) {
     const newMail = createMail(subject, body)
-    mails.unshift(newMail)
+    newMail.isSent = true
+    inMails.unshift(newMail)
+    sentMails.unshift(newMail)
+    storageService.save(IN_MAIL_KEY, inMails)
+    storageService.save(SENT_MAIL_KEY, sentMails)
 }
 
 function deleteMail(mailToDelete) {
-    mails = mails.filter((mail) => mail.id !== mailToDelete.id)
+    inMails = inMails.filter((mail) => mail.id !== mailToDelete.id)
+    storageService.save(IN_MAIL_KEY, inMails)
+    storageService.save(SENT_MAIL_KEY, sentMails)
+
 }
 
 function markRead(mailToMark) {
-    return Promise.resolve(mailToMark.isRead = !mailToMark.isRead)
+    mailToMark.isRead = !mailToMark.isRead
+    storageService.save(IN_MAIL_KEY, inMails)
+    storageService.save(SENT_MAIL_KEY, sentMails)
+
+    return Promise.resolve(true)
+    
 }
 
 function starMail(mail) {
-    return Promise.resolve(mail.isStarred = !mail.isStarred)
+    mail.isStarred = !mail.isStarred
+    storageService.save(IN_MAIL_KEY, inMails)
+    storageService.save(SENT_MAIL_KEY, sentMails)
+
+    return Promise.resolve(true)
 }
 
-function query() {
-    return Promise.resolve(mails)
-}
+
 
 function getFormatTime(unFormatTime) {
     const currTime = new Date(Date.now())
