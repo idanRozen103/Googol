@@ -92,36 +92,34 @@ const _notes = [
         }
     },
 
-    // {
-    //     type: "NoteTodos",
-    //     id: makeId(),
-    //     isPinned: false,
-    //     timeCreated = getTime(),
-    //     info: {
-    //         title: "",
-    //         todos: [
-    //             {
-    //                 text: 'לקנות מרכך כביסה',
-    //                 id: makeId() ,
-    //                 isDone: false,
-    //             },
-    //             {
-    //                 text: 'לקבוע תור לשיננית',
-    //                 id: makeId() ,
-    //                 isDone: false,
-    //             }]
-    //     },
-    //     style: {
-    //         backgroundColor: "#fff"
-    //     }
-    // },
+    {
+        type: "NoteTodos",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            timeCreated: getTime(),
+            title: "רשימת קניות",
+            todos: [{ id: "VMozQ", isDone: false, text: "חלב" },
+
+            { id: "MGzIg", isDone: false, text: "לחמניות" },
+
+            { id: "8TTav", isDone: true, text: "קיסמי שיניים" },
+
+            { id: "zYcRC", isDone: false, text: " מרכך כביסה" },
+
+            { id: "KTH0R", isDone: true, text: " אוכל לחתולים" }]
+        },
+        style: {
+            backgroundColor: "#fff",
+        }
+    },
 
     {
         type: "NoteVideo",
-        isPinned: false,
         id: makeId(),
+        isPinned: false,
         info: {
-            title: 'note6',
+            title: 'note7',
             url: "https://www.youtube.com/embed/MYJldv7ZhOA"
         },
         style: {
@@ -151,14 +149,12 @@ function query() {
     return Promise.resolve(notes)
 }
 
-function addNote(newNote) {
-    let note;
-    if (newNote.type === 'NoteTodos') {
-        note = _createTodoNote(newNote)
+function addNote(note) {
+    if (note.type === 'NoteTodos') {
+        note = _createTodoNote(note)
     }
-    else if (newNote.type === 'NoteVideo') {
-        newNote.info.url = _formatVideo(newNote.info.url)
-        note = newNote
+    else if (note.type === 'NoteVideo') {
+        note.info.url = _formatVideo(note.info.url)
     }
     notes.unshift(note)
     storageService.save(KEEP_KEY, notes)

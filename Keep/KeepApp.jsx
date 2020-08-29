@@ -1,5 +1,6 @@
 const { Route } = ReactRouterDOM
 
+import { eventBus } from '.././services/eventBusService.js'
 import { NoteList } from './cmps/NoteList.jsx'
 import { NoteModal } from './cmps/NoteModal.jsx'
 import { SearchNote } from './cmps/SearchNote.jsx'
@@ -54,7 +55,6 @@ export class KeepApp extends React.Component {
 
     onNoteToAdd = (ev, note) => {
         ev.preventDefault();
-        debugger
         if (note.info.todos && note.info.todos.length) {
             let splitedNote = { ...note, info: { ...note.info, todos: note.info.todos.split(',') } }
             keepService.addNote(splitedNote)
@@ -71,7 +71,10 @@ export class KeepApp extends React.Component {
         this.setState({ isModalOpen: false, selectedNote: '' })
         this.props.history.push('/keep')
         keepService.deleteNote(noteId)
-            .then(() => this.loadNotes())
+            .then(() => {
+                this.loadNotes()
+                eventBus.emit('notify', { msg: 'Note deleted', type: 'success' })
+            })
     }
 
     onCopyNote = (ev, note) => {
@@ -98,12 +101,9 @@ export class KeepApp extends React.Component {
         this.loadNotes()
     }
 
-
-
     getNoteForDisplay = () => {
 
         const notes = this.state.notes.filter(note => {
-            // debugger
             return (note.info.title.toLowerCase().includes(this.state.filter.toLowerCase()) ||
                 note.info.text && note.info.text.toLowerCase().includes(this.state.filter.toLowerCase())) ||
 
