@@ -13,46 +13,47 @@ export class NoteAdd extends React.Component {
     changeNoteType = (value) => {
         if (!value) value = this.state.currNoteType
         let currPlaceholder;
-        let getEmpty;
+        let noteToAdd;
         let currNoteType;
         let name;
 
         switch (value) {
             case 'image':
                 currPlaceholder = 'Enter image URL';
-                getEmpty = keepService.getEmptyImgNote;
+                noteToAdd = keepService.getEmptyImgNote();
                 currNoteType = 'url';
-                name = 'imgUrl'
+                name = 'url'
                 break;
             case 'checklist':
                 currPlaceholder = 'Enter comma separated list';
-                getEmpty = keepService.getEmptyCheckListNote;
+                noteToAdd = keepService.getEmptyCheckListNote();
                 currNoteType = 'text';
                 name = 'todos'
                 break;
             case 'video':
                 currPlaceholder = 'Enter video URL';
-                getEmpty = keepService.getEmptyVideoNote;
+                noteToAdd = keepService.getEmptyVideoNote();
                 currNoteType = 'url'
                 name = 'url'
                 break;
             case 'file':
                 currPlaceholder = 'Press to Upload audio';
-                getEmpty = keepService.getEmptyAudioNote
+                noteToAdd = keepService.getEmptyAudioNote();
                 currNoteType = 'text' //need to change to file and add the types of files accepted
                 name = 'file'
                 break;
             case 'text':
                 currPlaceholder = 'What\'s on your mind . . .';
-                getEmpty = keepService.getEmptyTxtNote
+                noteToAdd = keepService.getEmptyTxtNote();
                 currNoteType = 'text'
                 name = 'text'
                 break;
         }
-        this.setState({ currNoteType, currPlaceholder, name, noteToAdd: getEmpty, value:'' }, () => console.log(this.state))
+        this.setState({ currNoteType, currPlaceholder, name, noteToAdd, value:'' }, () => console.log(this.state.noteToAdd))
     }
 
     HandleInput = (ev) => {
+        console.log(this.state.noteToAdd);
         const value = ev.target.value
         const name = ev.target.name
         this.setState({

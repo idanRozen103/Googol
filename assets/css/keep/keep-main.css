@@ -1,4 +1,6 @@
 @import './modal-note.css';
+@import './noteSearch.css';
+
 .notes-input-line {
     width: 700px;
     justify-content: space-between;
@@ -60,7 +62,7 @@ input {
 
 .main-notes {
     margin-inline-end: 0;
-    padding: 0 100px;
+    padding: 20px 60px;
     column-count: 3;
     column-width: 300px;
     justify-content: center;
@@ -141,6 +143,13 @@ input {
     box-shadow: inset 0 0px 1px 1px #f5f1f16b;
 }
 
-.black{
-    color:black
+.pinned-notes {
+    border-bottom: 2px solid rgb(226, 226, 226);
+}
+
+.note-preview img, .note-preview video {
+    margin: 15px auto;
+    width: 100%;
+    margin: 15px auto;
+    object-fit: cover;
 }

@@ -1,3 +1,5 @@
+import { storageService } from "../../services/StorageService.js";
+
 export const keepService = {
     query,
     getEmptyTxtNote,
@@ -10,11 +12,11 @@ export const keepService = {
     getEmptyVideoNote,
     changeNoteBGC,
     copyNote,
-    pinNote
-
+    pinNote,
+    getNote
 }
 
-const notes = [
+const _notes = [
     {
         type: "NoteText",
         isPinned: false,
@@ -83,7 +85,7 @@ const notes = [
         id: makeId(),
         info: {
             title: 'note6',
-            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+            url: 'https://scontent-frt3-2.xx.fbcdn.net/v/t1.0-9/p960x960/101288510_10222892272195607_2638468976245473280_o.jpg?_nc_cat=103&_nc_sid=730e14&_nc_ohc=AR8ZP-Jn5_QAX9UojTb&_nc_ht=scontent-frt3-2.xx&tp=6&oh=78eba18bbee948776e3532c75a845e0e&oe=5F6FA715'
         },
         style: {
             backgroundColor: "#8bccff",
@@ -91,7 +93,7 @@ const notes = [
     },
 
     {
-        type: "NoteImg",
+        type: "NoteText",
         isPinned: false,
         id: makeId(),
         info: {
@@ -104,12 +106,12 @@ const notes = [
     },
 
     {
-        type: "NoteImg",
+        type: "NoteVideo",
         isPinned: false,
         id: makeId(),
         info: {
             title: 'note6',
-            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
+            url: "https://www.youtube.com/watch?v=_4kHxtiuML0"
         },
         style: {
             backgroundColor: "#ffee58fa",
@@ -137,21 +139,26 @@ const notes = [
     // }
 ];
 
+const KEEP_KEY = 'NOTES'
+
+var notes = storageService.load(KEEP_KEY)
 
 function query() {
+    if (!notes || !notes.length) notes = _notes
     return Promise.resolve(notes)
-
 }
 
-
-
 function addTxtNote(note) {
+
+    console.log(note);
     notes.unshift(note)
+    storageService.save(KEEP_KEY, notes)
 }
 
 function deleteNote(noteId) {
     return Promise.resolve(getNoteById(noteId).then(currNoteIdx => {
         notes.splice(currNoteIdx, 1)
+        storageService.save(KEEP_KEY, notes)
     }))
 }
 
@@ -169,10 +176,14 @@ function getNoteById(noteId) {
     return Promise.resolve(notes.findIndex(note => note.id === noteId))
 }
 
+function getNote(noteId) {
+    return Promise.resolve(notes.find(note => note.id === noteId))
+}
 
 function updateNote(noteId, newNote) {
     return Promise.resolve(getNoteById(noteId).then(currNoteIdx => {
         notes[currNoteIdx] = newNote;
+        storageService.save(KEEP_KEY, notes)
     }))
 }
 
@@ -188,7 +199,7 @@ function getEmptyTxtNote() {
             text: ''
         },
         style: {
-            backgroundColor: "#efefef",
+            backgroundColor: "#fff",
         }
     }
 }
@@ -202,25 +213,22 @@ function getEmptyImgNote() {
             title: ""
         },
         style: {
-            backgroundColor: "#00d"
+            backgroundColor: "#fff"
         }
     }
 }
 
 function getEmptyCheckListNote() {
     return {
-        type: "NoteCheckList",
+        type: "NoteTodos",
         id: makeId(),
         isPinned: false,
         info: {
             title: "",
-            todos: [
-                { text: "Do that", doneAt: null },
-                { text: "Do this", doneAt: 187111111 }
-            ]
+            todos: ''
         },
         style: {
-            backgroundColor: "#00d"
+            backgroundColor: "#fff"
         }
     }
 
@@ -236,7 +244,7 @@ function getEmptyVideoNote() {
             url: ''
         },
         style: {
-            backgroundColor: "#00d"
+            backgroundColor: "#fff"
         }
     }
 }
@@ -251,7 +259,7 @@ function getEmptyAudioNote() {
             file: ''
         },
         style: {
-            backgroundColor: "#00d"
+            backgroundColor: "#fff"
         }
     }
 }
@@ -259,6 +267,7 @@ function getEmptyAudioNote() {
 function changeNoteBGC(noteId, color) {
     let currNoteIdx = getNoteIdx(noteId)
     notes[currNoteIdx].style = { backgroundColor: color }
+    storageService.save(KEEP_KEY, notes)
 }
 
 function getNoteIdx(id) {
@@ -266,12 +275,15 @@ function getNoteIdx(id) {
 }
 
 function copyNote(note) {
-    const noteToCopy = { ...note, id: makeId() }
+    const noteToCopy = { ...note, id: makeId(), isPinned: false }
     notes.unshift(noteToCopy)
+    storageService.save(KEEP_KEY, notes)
     return Promise.resolve()
 }
 
 function pinNote(noteId) {
     let currNoteIdx = getNoteIdx(noteId)
-    notes[currNoteIdx].isPinned = !notes[currNoteIdx].isPinned;
+    notes[currNoteIdx].isPinned = !notes[currNoteIdx].isPinned
+    storageService.save(KEEP_KEY, notes)
+    return Promise.resolve()
 }
