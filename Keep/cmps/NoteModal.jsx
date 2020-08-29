@@ -56,14 +56,14 @@ class _NoteModal extends React.Component {
                     <small>Created At: {note.info.timeCreated.substring(0, note.info.timeCreated.length - 32)}</small>
                 </ul>)
             case 'NoteVideo':
-                return <iframe width="380" height="240" controls src="https://www.youtube.com/embed/MYJldv7ZhOA" frameBorder="0" />
+                return <iframe width="380" height="240" controls src={note.info.url} frameBorder="0" />
             case 'NoteAudio':
                 return <audio controls src={note.info.url} type="audio/mpeg" />
         }
     }
 
     render() {
-        const { onDeleteNote, onChangeNoteBGC, onCopyNote, closeModal, onUpdateNote, onPinNote, onTodoToggle } = this.props
+        const { onDeleteNote, onChangeNoteBGC, onCopyNote, closeModal, onUpdateNote, onPinNote } = this.props
         const note = this.state.noteToUpdate
         if (!note) return 'loading...'
 

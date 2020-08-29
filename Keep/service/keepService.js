@@ -19,72 +19,11 @@ export const keepService = {
 
 const _notes = [
     {
-        type: "NoteText",
-        isPinned: false,
-        id: makeId(),
-        info: {
-            title: 'note4',
-            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur"
-        },
-        style: {
-            backgroundColor: "#fdcfe8",
-        }
-    },
-    {
-        type: "NoteText",
-        isPinned: false,
-        id: makeId(),
-        info: {
-            title: 'note1',
-            text: "Fullstack Me Baby!"
-        },
-        style: {
-            backgroundColor: "#fff",
-        }
-    },
-    {
-        type: "NoteText",
-        isPinned: false,
-        id: makeId(),
-        info: {
-            title: 'note5',
-            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibusLorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
-        },
-        style: {
-            backgroundColor: "#f28b82",
-        }
-    },
-    {
-        type: "NoteText",
-        isPinned: false,
-        id: makeId(),
-        info: {
-            title: 'note2',
-            text: "Fullstack Me Baby!"
-        },
-        style: {
-            backgroundColor: "#c4fd82",
-        }
-    },
-    {
-        type: "NoteText",
-        isPinned: false,
-        id: makeId(),
-        info: {
-            title: 'note3',
-            text: "Fullstack Me Baby!"
-        },
-        style: {
-            backgroundColor: "#d7aefb",
-        }
-    },
-
-    {
         type: "NoteImg",
         isPinned: false,
         id: makeId(),
         info: {
-            title: 'note6',
+            title: 'From my last trip',
             url: 'https://scontent-frt3-2.xx.fbcdn.net/v/t1.0-9/p960x960/101288510_10222892272195607_2638468976245473280_o.jpg?_nc_cat=103&_nc_sid=730e14&_nc_ohc=AR8ZP-Jn5_QAX9UojTb&_nc_ht=scontent-frt3-2.xx&tp=6&oh=78eba18bbee948776e3532c75a845e0e&oe=5F6FA715'
         },
         style: {
@@ -113,6 +52,51 @@ const _notes = [
             backgroundColor: "#fff",
         }
     },
+ 
+
+    {
+        type: "NoteText",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: 'דברים שרציתי לומר',
+            text: "בן לאבא מתכנת: “אבא, למה השמש עולה במזרח ושוקעת במערב?”  \nאבא: “כל עוד זה עובד, עזוב את זה”"
+        },
+        style: {
+            backgroundColor: "#f28b82",
+        }
+    },
+ 
+
+  
+
+
+    {
+        type: "NoteText",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: 'Some Inspiration',
+            text: "Great things never came from comfort zone!"
+        },
+        style: {
+            backgroundColor: "#c4fd82",
+        }
+    },
+    {
+        type: "NoteText",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: 'Players that are better than Messi:',
+            text: "none"
+        },
+        style: {
+            backgroundColor: "#d7aefb",
+        }
+    },
+
+
 
     {
         type: "NoteVideo",
@@ -126,6 +110,32 @@ const _notes = [
             backgroundColor: "#ffee58fa",
         }
     },
+
+    {
+        type: "NoteText",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: ':מתי ישנתי לאחרונה',
+            text: "new Date('July 05, 2020').getTime()"
+        },
+        style: {
+            backgroundColor: "#fdcfe8",
+        }
+    },
+    {
+        type: "NoteVideo",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            title: 'משפחת שווץ- מבצר כריות',
+            url: "https://www.youtube.com/embed/qeF3Sx_IGvE"
+        },
+        style: {
+            backgroundColor: "#ffee58fa",
+        }
+    },
+
     {
         type: "NoteAudio",
         isPinned: false,
@@ -135,9 +145,22 @@ const _notes = [
             title: ''
         },
         style: {
-            backgroundColor: "#00d"
+            backgroundColor: "#f28b82"
         }
-    }
+    },
+    {
+        type: "NoteImg",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            title: 'need to find in my placekeeper:',
+            url: 'https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-9/118590327_10223765497465693_8092704684387184876_o.jpg?_nc_cat=100&_nc_sid=730e14&_nc_ohc=-A7xQ6jx3N4AX-ncQpz&_nc_ht=scontent-frx5-1.xx&oh=5b7641ffb7d143af6fceed99b5f207d6&oe=5F722662'
+        },
+        style: {
+            backgroundColor: "##ffc107",
+        }
+    },
+
 ];
 
 const KEEP_KEY = 'NOTES'
@@ -162,7 +185,7 @@ function addNote(note) {
 
 
 function _formatVideo(url) {
-    'https://www.youtube.com/watch?v=nqZjJRxZI90'
+
     var newUrl = url.split('=')
     return ('https://www.youtube.com/embed/' + newUrl[1])
 }

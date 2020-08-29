@@ -21,7 +21,6 @@ export class KeepApp extends React.Component {
     componentDidMount() {
         if (this.props.location.pathname.length > 6) this.setState({ isModalOpen: true })
         else this.loadNotes()
-        console.log(this.state.notes);
 
     }
 
@@ -64,6 +63,7 @@ export class KeepApp extends React.Component {
         if (note.type === 'NoteTodos' && !note.info.todos) return
         keepService.addNote(note)
         this.loadNotes()
+        eventBus.emit('notify', { msg: 'New note added', type: 'success' })
     }
 
     onDeleteNote = (ev, noteId) => {
@@ -80,7 +80,10 @@ export class KeepApp extends React.Component {
     onCopyNote = (ev, note) => {
         ev.preventDefault();
         keepService.copyNote(note)
-            .then(() => this.loadNotes())
+            .then(() => {
+                this.loadNotes()
+                eventBus.emit('notify', { msg: 'Note copied', type: 'success' })
+            })
     }
 
     onPinNote = (ev, noteId) => {
