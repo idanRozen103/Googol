@@ -17,7 +17,8 @@ class _MailApp extends React.Component {
         sentMails: [],
         filterText: '',
         filterOption: '',
-        sortBy: ''
+        sortBy: '',
+        unReadCount: 0
     }
 
     componentDidMount() {
@@ -37,6 +38,18 @@ class _MailApp extends React.Component {
         eventBus.emit('routeChange')
     }
 
+
+
+    getUnreadPrecent = () => {
+        var countUnread = 0
+        const { inMails } = this.state        
+        for (let i=0; i < inMails.length; i++) {
+            const mail = inMails[i]
+            countUnread += (!mail.isRead) ? 1 : 0
+        }
+        let res = ((countUnread/inMails.length)*100).toFixed(0) +'%'
+        return res
+    }
 
     setFilter = (val, filterBy) => {
         const { location } = this.props
@@ -166,6 +179,15 @@ class _MailApp extends React.Component {
                         <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/sentMails">Sent Mails</NavLink>
 
                         <div className="mail-link">Drafts</div>
+
+                        <div className="prog-bar-container">
+                            <label htmlFor="">Mails Readed</label>
+                            <div className="prog-bar-box">
+                                <div className="prog-bar" style={{ 'width': `${this.getUnreadPrecent()}` }}>{this.getUnreadPrecent()}</div>
+                            </div>
+                        </div>
+
+
                     </nav>
 
                     <MailList clearFilters={this.clearFilters} sentMails={sentMails} mails={inMails} onStarredMail={this.onStarredMail} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead} />

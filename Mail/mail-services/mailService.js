@@ -47,6 +47,7 @@ function _getInMails(num) {
         for (let i = 0; i < num; i++) {
             _inMails.push(createMail())
         }
+        _inMails.push(createMail('Get back to your projects.', ' Hello stav,  Your free trial expired a week ago, and we already miss you. 💔  Your projects, designs, and share links have been automatically locked. The good news is you can still get them back.  Purchase a subscription within 7 days to unlock your projects.', 'Lubo from Avocode'))
         storageService.save(IN_MAIL_KEY, _inMails)
     }
     return _inMails
@@ -148,3 +149,5 @@ function getRandomColor() {
     }
     return color;
 }
+
+
