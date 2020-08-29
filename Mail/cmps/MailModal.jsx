@@ -14,7 +14,7 @@ class _MailModal extends React.Component {
         const { children } = this.props
         return (
             <div className={ `modal-wrapper ${isShown ? '' : 'hide'}` } onClick={ this.closeModal } >
-                <div className="modal-content" onClick={ (ev) => ev.stopPropagation() }>
+                <div className="modal-content modal-mail" onClick={ (ev) => ev.stopPropagation() }>
                     { children }
                     <button className="close-mail-modal" onClick={ this.closeModal }>X</button>
                 </div>

@@ -96,6 +96,10 @@
     outline: none;
 }
 
+.modal-mail {
+    background-color:  rgb(240 245 255)
+}
+
 .mail-search select {
     border: none;
     outline: none;
@@ -260,7 +264,7 @@
 }
 
 .mail-prev>*:not(:first-child) {
-    margin-left: 7%;
+    margin-left: 3%;
     display: flex;
 }
 
@@ -290,6 +294,7 @@
 
 .to-input, .subject-input {
     padding: 5px;
+    background-color: rgb(240 245 255);
 }
 
 .compose-mail-body {
@@ -297,6 +302,7 @@
     resize: none;
     border: none;
     width: 100%;
+    background-color: rgb(240 245 255);
     /* height: 80%; */
 }
 
@@ -310,6 +316,14 @@
 
 .mail-edit-btns button {
     margin: 0 0.3rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 40%;
+    padding: 8px;
+}
+
+.mail-edit-btns button:hover {
+    background-color: #DDE3FF;
 }
 
 .mail-prev:hover .mail-edit-btns {
@@ -420,11 +434,11 @@
 }
 
 .reply-btn:hover {
-    background-color: #ddd;
+    background-color: #DDE3FF;
 }
 
 .star-btn:hover {
-    background-color: #ddd;
+    background-color: #DDE3FF;
 }
 
 .mail-details-body {
