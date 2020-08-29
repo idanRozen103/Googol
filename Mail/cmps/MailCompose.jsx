@@ -12,6 +12,7 @@ class _MailCompose extends React.Component {
     }
 
     componentDidMount() {
+        
         const { pathname } = this.props.location
         const pathList = pathname.split('/')
         const lastParam = pathList[pathList.length - 1]

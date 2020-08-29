@@ -15,8 +15,12 @@ li {
     list-style: none;
 }
 
+.active-nav-link {
+    color: rgb(255, 153, 105);
+}
+
 body {
-    background-color: rgb(239, 239, 240);
+    background-color: rgb(240 245 255);
     margin: 0;
     padding: 0;
 }
@@ -25,8 +29,7 @@ header.main-header {
     justify-content: space-between;
     align-items: center;
     height: 100px;
-    background-color: rgb(216, 216, 216);
-    /* padding: 10px; */
+    background-color: #dde3ff;
 }
 
 .nav-container {
@@ -45,6 +48,7 @@ nav.main-nav {
 
 h2.logo {
     /* flex-basis: 50%; */
+    color: #FF9968
 }
 
 /* HELPERS */
@@ -66,3 +70,4 @@ a {
     text-decoration: none;
     color: inherit;
 }
+

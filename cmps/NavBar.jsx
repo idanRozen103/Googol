@@ -4,11 +4,11 @@ export class NavBar extends React.Component {
     render() {
         return (
             <nav className="main-nav flex">
-                <NavLink className="nav-link" exact to="/">Home</NavLink>
-                <NavLink className="nav-link" to="/about">About Us</NavLink>
-                <NavLink className="nav-link" to="/book">MissBooks</NavLink>
-                <NavLink className="nav-link" to="/keep">MissKeep</NavLink>
-                <NavLink className="nav-link" to="/mail/inbox">Mail</NavLink>
+                <NavLink activeClassName="active-nav-link" className="nav-link" exact to="/">Home</NavLink>
+                <NavLink activeClassName="active-nav-link" className="nav-link" to="/about">About Us</NavLink>
+                <NavLink activeClassName="active-nav-link" className="nav-link" to="/book">MissBooks</NavLink>
+                <NavLink activeClassName="active-nav-link" className="nav-link" to="/keep">MissKeep</NavLink>
+                <NavLink activeClassName="active-nav-link" className="nav-link" to="/mail/inbox">Mail</NavLink>
             </nav>
         )
     }

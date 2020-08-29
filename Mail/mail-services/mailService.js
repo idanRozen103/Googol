@@ -15,12 +15,12 @@ export const mailService = {
     markUnRead
 }
 
-var inMails = _getInMails(10)
+var inMails = _getInMails(3)
 var sentMails = _getSentMails()
 
 window.theMails = inMails
 
-function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
+function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan', imgUrl='') {
     const mail = {
         name,
         id: utils.makeId(),
@@ -30,7 +30,8 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
         sentAt: getRandTime(),
         isStarred: false,
         isSent: false,
-        color: getRandomColor()
+        color: getRandomColor(),
+        imgUrl
     }
     return mail
 }
@@ -44,14 +45,8 @@ function _getInMails(num) {
     var _inMails = storageService.load(IN_MAIL_KEY)
     if (!_inMails || !_inMails.length) {
         _inMails = []
-        for (let i = 0; i < num; i++) {
-            _inMails.push(createMail())
-        }
-        
 
-
-
-        _inMails.push(createMail('Get back to your projects.', ' Hello stav,  Your free trial expired a week ago, and we already miss you. 💔  Your projects, designs, and share links have been automatically locked. The good news is you can still get them back.  Purchase a subscription within 7 days to unlock your projects.', 'Lubo from Avocode'))
+        _inMails.push(createMail('Get back to your projects.', ' Hello stav,  Your free trial expired a week ago, and we already miss you. 💔  Your projects, designs, and share links have been automatically locked. The good news is you can still get them back.  Purchase a subscription within 7 days to unlock your projects.', 'Lubo from Avocode'), createMail('Confirm your email address','Verify your e-mail to finish signing up for AvocodeThank you for choosing Avocode. Please confirm that anistu@gmail.com is your e-mail address by clicking on the button below or use this link https://avocode.com/confirm-email/MTAxODQ1OQ/5iu-6d9ee3342678f53a67c2 within 48 hours.', 'Avocode'), createMail('Stav and 39 others made changes in your shared folders', 'Here’s what happened in your shared folders last week', 'Dropbox', '../../assets/img/Tornado.jpg'), createMail('OMG OMG OMG!', 'pizza tastes really good', 'FOODY', '../../assets/img/pizza.jpeg'), createMail('Что важнее, сайт или реклама?','Здравствуйте.Сайт важнее чем реклама! Многие владельцы этого не замечают, тратя весь бюджет на рекламу! Но, задайтесь себе вопросом? Где купит клиент при равных условиях? Правильно! На ресурсе, который будем ему более интересен!А условия сейчас плюс, минус у всех равные. Проведем аудит Вашего сайта! Внесем на сайт все согласованные и>зменения. Сделаем аудит рекламных компаний.Работа "в одном окне". Внимание! Только 2 недели стоимость аудита сайта 5000 рублей! Важно!Если аудит уже есть, с удовольствием реализуем Ваши задумки любой сложности!С Уважением, Удальцов Сергей!' ,'Sergey'), createMail('YOU WON!!!', 'Hey! we\'re happy to inform you that you won the best prize eveeeerrrrrr! send us your favorite child to proceed', 'Prizes'), createMail('Did you know?', 'a cat named Tibbles once started bringing dead birds to a lighthouse that were discovered to be a new species, the Stephens Island wren. They went extinct shortly after and Tibbles the cat was accused of being the only single living creature to eradicate a species.', 'Tibbles The Cat', '../../assets/img/cat.jpg' )) 
         _inMails.sort((mail1, mail2) => {
             return mail1.sentAt - mail2.sentAt
         })
