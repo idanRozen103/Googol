@@ -18,10 +18,9 @@ export class KeepApp extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-
         if (this.props.location.pathname.length > 6) this.setState({ isModalOpen: true })
         else this.loadNotes()
+        console.log(this.state.notes);
 
     }
 
@@ -54,16 +53,16 @@ export class KeepApp extends React.Component {
     }
 
     onNoteToAdd = (ev, note) => {
-        console.log(note);
         ev.preventDefault();
+        debugger
         if (note.info.todos && note.info.todos.length) {
             let splitedNote = { ...note, info: { ...note.info, todos: note.info.todos.split(',') } }
-            keepService.addTxtNote(splitedNote)
+            keepService.addNote(splitedNote)
             this.loadNotes()
             return
         }
-        if (!note.info.todos) return
-        keepService.addTxtNote(note)
+        if (note.type === 'NoteTodos' && !note.info.todos) return
+        keepService.addNote(note)
         this.loadNotes()
     }
 
@@ -93,14 +92,22 @@ export class KeepApp extends React.Component {
         this.setState({ filter: value })
     }
 
+    onTodoToggle = (el, ev, noteId, todoId) => {
+        ev.stopPropagation();
+        keepService.toggleTodo(noteId, todoId)
+        this.loadNotes()
+    }
+
+
 
     getNoteForDisplay = () => {
 
         const notes = this.state.notes.filter(note => {
+            // debugger
             return (note.info.title.toLowerCase().includes(this.state.filter.toLowerCase()) ||
                 note.info.text && note.info.text.toLowerCase().includes(this.state.filter.toLowerCase())) ||
 
-                (note.info.todos) && (note.info.todos.some(todo => todo.toLowerCase().includes(this.state.filter.toLowerCase())))
+                (note.info.todos) && (note.info.todos.some(todo => todo.text.toLowerCase().includes(this.state.filter.toLowerCase())))
         })
         return notes;
     }
@@ -112,9 +119,9 @@ export class KeepApp extends React.Component {
             <React.Fragment>
                 <NoteAdd onNoteToAdd={this.onNoteToAdd} />
                 {!this.state.selectedNote && <SearchNote filter={this.state.filter} onSetFilter={this.onSetFilter} />}
-                <NoteList notes={notes} onPinNote={this.onPinNote} onDeleteNote={this.onDeleteNote} onCopyNote={this.onCopyNote} openModal={this.openModal} onChangeNoteBGC={this.onChangeNoteBGC} />
+                <NoteList notes={notes} onPinNote={this.onPinNote} onTodoToggle={this.onTodoToggle} onDeleteNote={this.onDeleteNote} onCopyNote={this.onCopyNote} openModal={this.openModal} onChangeNoteBGC={this.onChangeNoteBGC} />
                 <Route path="/keep/:id">
-                    {this.state.isModalOpen && <NoteModal onPinNote={this.onPinNote} note={this.state.selectedNote} onCopyNote={this.onCopyNote} closeModal={this.closeModal} onChangeNoteBGC={this.onChangeNoteBGC} onUpdateNote={this.onUpdateNote} onDeleteNote={this.onDeleteNote} />}
+                    {this.state.isModalOpen && <NoteModal onPinNote={this.onPinNote} note={this.state.selectedNote} onCopyNote={this.onCopyNote} closeModal={this.closeModal} onTodoToggle={this.onTodoToggle} onChangeNoteBGC={this.onChangeNoteBGC} onUpdateNote={this.onUpdateNote} onDeleteNote={this.onDeleteNote} />}
                 </Route>
             </React.Fragment >
         )

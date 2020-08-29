@@ -32,7 +32,6 @@
 
 .note-modal-content input {
     padding: 6px 0;
-    
 }
 
 .note-modal-content input[name="title"] {
@@ -41,7 +40,7 @@
     cursor: text;
 }
 
-.note-modal-content input{
+.note-modal-content input {
     cursor: text !important;
 }
 
@@ -68,3 +67,16 @@
     color: white;
     box-shadow: 1px 9px 7px 0px #c5bdbd;
 }
+
+.note-preview ul {
+    margin: 20px 0;
+    padding-inline-start: 0;
+    width: 50%;
+}
+
+ .checked {
+    text-decoration: line-through;
+    color: rgb(165, 163, 163);
+}
+
+.note-preview ul li {}

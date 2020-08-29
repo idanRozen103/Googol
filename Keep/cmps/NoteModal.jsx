@@ -48,16 +48,22 @@ class _NoteModal extends React.Component {
             case 'NoteImg':
                 return <img src={note.info.url} width="100%" height="82%" />
             case 'NoteTodos':
-                return (<ul>{note.info.todos.map((todo, idx) => <li key={idx}><input type="checkbox" />{todo}</li>)}</ul>)
+                return (<ul>
+                    {note.info.todos.map(todo => <li key={todo.id} className={todo.isDone ? 'checked' : ''} onClick={(ev) => { this.props.onTodoToggle(this, ev, note.id, todo.id) }}><input type="checkbox" onChange={() => console.log('')} checked={todo.isDone ? true : false} />{todo.text}
+                    </li>
+                    )}
+                    <br />
+                    <small>Created At: {note.info.timeCreated.substring(0, note.info.timeCreated.length - 32)}</small>
+                </ul>)
             case 'NoteVideo':
-                return <video width="380" height="240" controls src={note.info.url} frameBorder="0"></video>
-            // case 'NoteAudio':
-            // return <WelcomeBack {...props} />
+                return <iframe width="380" height="240" controls src="https://www.youtube.com/embed/MYJldv7ZhOA" frameBorder="0" />
+            case 'NoteAudio':
+                return <audio controls src={note.info.url} type="audio/mpeg" />
         }
     }
 
     render() {
-        const { onDeleteNote, onChangeNoteBGC, onCopyNote, closeModal, onUpdateNote, onPinNote } = this.props
+        const { onDeleteNote, onChangeNoteBGC, onCopyNote, closeModal, onUpdateNote, onPinNote, onTodoToggle } = this.props
         const note = this.state.noteToUpdate
         if (!note) return 'loading...'
 

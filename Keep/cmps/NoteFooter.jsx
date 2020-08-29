@@ -43,7 +43,7 @@ export class NoteFooter extends React.Component {
                     return <i className="fas fa-font"></i>
                 case 'NoteImg':
                     return <i className="far fa-image"></i>
-                case 'NoteList':
+                case 'NoteTodos':
                     return <i className="fas fa-list"></i>
                 case 'NoteAudio':
                     return <i className="fas fa-volume-up"></i>

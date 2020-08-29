@@ -22,25 +22,25 @@ export class NoteAdd extends React.Component {
                 currPlaceholder = 'Enter image URL';
                 noteToAdd = keepService.getEmptyImgNote();
                 currNoteType = 'url';
-                name = 'url'
+                name = 'url';
                 break;
             case 'checklist':
                 currPlaceholder = 'Enter comma separated list';
                 noteToAdd = keepService.getEmptyCheckListNote();
                 currNoteType = 'text';
-                name = 'todos'
+                name = 'todos';
                 break;
             case 'video':
                 currPlaceholder = 'Enter video URL';
                 noteToAdd = keepService.getEmptyVideoNote();
-                currNoteType = 'url'
-                name = 'url'
+                currNoteType = 'url';
+                name = 'url';
                 break;
             case 'file':
                 currPlaceholder = 'Press to Upload audio';
                 noteToAdd = keepService.getEmptyAudioNote();
-                currNoteType = 'text' //need to change to file and add the types of files accepted
-                name = 'file'
+                currNoteType = 'url' //need to change to file and add the types of files accepted
+                name = 'url';
                 break;
             case 'text':
                 currPlaceholder = 'What\'s on your mind . . .';
@@ -49,11 +49,10 @@ export class NoteAdd extends React.Component {
                 name = 'text'
                 break;
         }
-        this.setState({ currNoteType, currPlaceholder, name, noteToAdd, value:'' }, () => console.log(this.state.noteToAdd))
+        this.setState({ currNoteType, currPlaceholder, name, noteToAdd, value: '' })
     }
 
     HandleInput = (ev) => {
-        console.log(this.state.noteToAdd);
         const value = ev.target.value
         const name = ev.target.name
         this.setState({

@@ -3,7 +3,7 @@ import { storageService } from "../../services/StorageService.js";
 export const keepService = {
     query,
     getEmptyTxtNote,
-    addTxtNote,
+    addNote: addNote,
     deleteNote,
     updateNote,
     getEmptyImgNote,
@@ -13,7 +13,8 @@ export const keepService = {
     changeNoteBGC,
     copyNote,
     pinNote,
-    getNote
+    getNote,
+    toggleTodo
 }
 
 const _notes = [
@@ -78,7 +79,6 @@ const _notes = [
         }
     },
 
-
     {
         type: "NoteImg",
         isPinned: false,
@@ -92,18 +92,29 @@ const _notes = [
         }
     },
 
-    {
-        type: "NoteText",
-        isPinned: false,
-        id: makeId(),
-        info: {
-            title: 'note6',
-            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias velit magnam quidem reprehenderit ea optio, nam, praesentium ab at ad eligendi dolore aperiam earum ducimus. Sapiente sed atque temporibus"
-        },
-        style: {
-            backgroundColor: "#ffc107",
-        }
-    },
+    // {
+    //     type: "NoteTodos",
+    //     id: makeId(),
+    //     isPinned: false,
+    //     timeCreated = getTime(),
+    //     info: {
+    //         title: "",
+    //         todos: [
+    //             {
+    //                 text: 'לקנות מרכך כביסה',
+    //                 id: makeId() ,
+    //                 isDone: false,
+    //             },
+    //             {
+    //                 text: 'לקבוע תור לשיננית',
+    //                 id: makeId() ,
+    //                 isDone: false,
+    //             }]
+    //     },
+    //     style: {
+    //         backgroundColor: "#fff"
+    //     }
+    // },
 
     {
         type: "NoteVideo",
@@ -111,32 +122,24 @@ const _notes = [
         id: makeId(),
         info: {
             title: 'note6',
-            url: "https://www.youtube.com/watch?v=_4kHxtiuML0"
+            url: "https://www.youtube.com/embed/MYJldv7ZhOA"
         },
         style: {
             backgroundColor: "#ffee58fa",
         }
     },
-    // {
-    //     type: "NoteImg",
-    //     info: {
-    //         url: "http://some-img/me",
-    //         title: "Me playing Mi"
-    //     },
-    //     style: {
-    //         backgroundColor: "#00d"
-    //     }
-    // },
-    // {
-    //     type: "NoteTodos",
-    //     info: {
-    //         label: "How was it:",
-    //         todos: [
-    //             { text: "Do that", doneAt: null },
-    //             { text: "Do this", doneAt: 187111111 }
-    //         ]
-    //     }
-    // }
+    {
+        type: "NoteAudio",
+        isPinned: false,
+        id: makeId(),
+        info: {
+            url: "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3",
+            title: ''
+        },
+        style: {
+            backgroundColor: "#00d"
+        }
+    }
 ];
 
 const KEEP_KEY = 'NOTES'
@@ -148,11 +151,46 @@ function query() {
     return Promise.resolve(notes)
 }
 
-function addTxtNote(note) {
-
-    console.log(note);
+function addNote(newNote) {
+    let note;
+    if (newNote.type === 'NoteTodos') {
+        note = _createTodoNote(newNote)
+    }
+    else if (newNote.type === 'NoteVideo') {
+        newNote.info.url = _formatVideo(newNote.info.url)
+        note = newNote
+    }
     notes.unshift(note)
     storageService.save(KEEP_KEY, notes)
+}
+
+
+function _formatVideo(url) {
+    'https://www.youtube.com/watch?v=nqZjJRxZI90'
+    var newUrl = url.split('=')
+    return ('https://www.youtube.com/embed/' + newUrl[1])
+}
+
+
+function _createTodoNote(note) {
+    console.log(note);
+    let newTodos = []
+    note.info.todos.forEach(todo => {
+
+        const newTodo = {
+            text: todo,
+            id: makeId(),
+            isDone: false,
+        }
+        newTodos.push(newTodo)
+    })
+    note.info.todos = newTodos
+    note.info.timeCreated = getTime()
+    return note
+}
+
+function getTime() {
+    return new Date().toString()
 }
 
 function deleteNote(noteId) {
@@ -251,12 +289,12 @@ function getEmptyVideoNote() {
 
 function getEmptyAudioNote() {
     return {
-        type: "NoteAAudio",
+        type: "NoteAudio",
         id: makeId(),
         isPinned: false,
         info: {
             title: '',
-            file: ''
+            url: ''
         },
         style: {
             backgroundColor: "#fff"
@@ -286,4 +324,14 @@ function pinNote(noteId) {
     notes[currNoteIdx].isPinned = !notes[currNoteIdx].isPinned
     storageService.save(KEEP_KEY, notes)
     return Promise.resolve()
+}
+
+function toggleTodo(noteId, todoId) {
+    getNote(noteId).then(note => {
+        const currTodo = note.info.todos.find(todo => {
+            return todo.id === todoId
+        })
+        currTodo.isDone = !currTodo.isDone
+        storageService.save(KEEP_KEY, notes)
+    })
 }

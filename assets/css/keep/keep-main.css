@@ -147,7 +147,7 @@ input {
     border-bottom: 2px solid rgb(226, 226, 226);
 }
 
-.note-preview img, .note-preview video {
+.note-preview img, .note-preview iframe, .note-preview audio {
     margin: 15px auto;
     width: 100%;
     margin: 15px auto;
