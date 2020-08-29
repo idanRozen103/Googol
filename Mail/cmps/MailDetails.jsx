@@ -53,6 +53,7 @@ class _MailDetails extends React.Component {
 
                 </section>
                 <p className="mail-details-body">{mail.body}</p>
+                {mail.imgUrl && <img className="mail-img" src={mail.imgUrl} />}
 
             </div>
         )
