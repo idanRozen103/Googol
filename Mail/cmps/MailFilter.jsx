@@ -14,6 +14,8 @@ class _MailFilter extends React.Component {
 
     }
 
+    
+
     componentDidMount() {
         this.loadFilters()
         this.closeEventBus = eventBus.on('routeChange', () => {
@@ -53,6 +55,7 @@ class _MailFilter extends React.Component {
         // const { placeholder, isPrice, options } = this.props
         return (
             <div className="filter-nav">
+                <img className="search-img" src="./assets/img/search.png"></img>
                 <input value={this.state.filterText} onChange={(ev) => {
                     this.handleChange(ev.target.value, 'filterText')
                 }} type="text" name="text"  placeholder='search' />

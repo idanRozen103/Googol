@@ -1,5 +1,6 @@
 export const utils = {
     makeId,
+    getRandInt
 }
 
 function makeId(length = 5) {
@@ -10,3 +11,4 @@ function makeId(length = 5) {
     }
     return txt;
 }
+
