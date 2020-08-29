@@ -65,7 +65,7 @@ export class NoteFooter extends React.Component {
                     <input type="radio" id="note-clone" name="note-btn" value="note-clone" />
                     <label htmlFor="note-clone" ><i className="fas fa-clone" onClick={(ev) => { ev.stopPropagation(); onCopyNote(ev, note) }}></i></label>
                     <input type="radio" id="note-delete" name="note-btn" value="note-delete" />
-                    <label htmlFor="note-delete" ><i className="fas fa-trash-alt" onClick={(ev) => { onDeleteNote(ev, note.id) }} ></i></label>
+                    <label htmlFor="note-delete" ><i className="fas fa-trash-alt" onClick={(ev) => { ev.preventDefault(); onDeleteNote(ev, note.id) }} ></i></label>
                     {this.state.isColorOpen && <ColorPalette onChangeNoteBGC={onChangeNoteBGC} note={note} closeColors={this.closeColors} />}
                 </div >
             </div >

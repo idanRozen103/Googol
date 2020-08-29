@@ -12,7 +12,6 @@ export class ColorPalette extends React.Component {
 
 
     render() {
-        const { note } = this.props
         return (
             <div className="colors-container flex">
                 <button onClick={(ev) => this.onChangeColor('#fff475', ev)} style={{ backgroundColor: "#fff475" }}></button>

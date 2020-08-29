@@ -37,9 +37,9 @@ export class NoteAdd extends React.Component {
                 name = 'url';
                 break;
             case 'file':
-                currPlaceholder = 'Press to Upload audio';
+                currPlaceholder = 'Enter audio URL';
                 noteToAdd = keepService.getEmptyAudioNote();
-                currNoteType = 'url' //need to change to file and add the types of files accepted
+                currNoteType = 'url' 
                 name = 'url';
                 break;
             case 'text':
