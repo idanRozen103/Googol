@@ -1,0 +1,30 @@
+.notification-box {
+    position: absolute;
+    right: 10px;
+    bottom: 40px;
+    /* border: 4px solid rgba(211, 187, 238, 0.61); */
+    
+}
+
+.hidden-msg {
+    display: none;
+}
+
+.notification-box span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.notification-box.success {
+    background-color: rgb(255, 229, 205);
+    border-radius: 10px;
+    border: wheat 1px solid;
+    padding: 10px;
+    color: honeydew;
+}
+
+.notification-box.fail {
+    background-color: red;
+}

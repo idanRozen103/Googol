@@ -18,7 +18,9 @@ class _MailApp extends React.Component {
         filterText: '',
         filterOption: '',
         sortBy: '',
-        unReadCount: 0
+        unReadCount: 0,
+        openMenuClass: '',
+        openScreen: ''
     }
 
     componentDidMount() {
@@ -149,13 +151,24 @@ class _MailApp extends React.Component {
         return mails
     }
 
+    toggleMenu = () => {
+        var openMenuClass = ''
+        var openScreen =''
+        if (!this.state.openMenuClass) {
+            openMenuClass = 'menu-open'
+            openScreen='open-screen'
+        }
+        
+        this.setState({openMenuClass, openScreen})
+    }
+
     render() {
         const inMails = this.getSortedMails(this.getFilteredMails(this.state.inMails))
         const sentMails = this.getSortedMails(this.getFilteredMails(this.state.sentMails))
         if (!inMails) return <div>Loading...</div>
         return (
-            <React.Fragment>
-
+            <div className="main-modal-header">
+                <div onClick={this.toggleMenu} className={`mail-screen ${this.state.openScreen}`}></div>
                 <div className="mail-search">
                     <MailFilter location={this.props.location} onFilter={this.setFilter} />
                 </div>
@@ -171,17 +184,18 @@ class _MailApp extends React.Component {
                     </div>
                     {/* <button className="sort-mail-title">Sort By title</button> */}
                 </div>
+                <button onClick={this.toggleMenu}  className="hamburger">☰</button>
                 <div className="mail-container container flex">
-                    <nav className="mail-side-nav flex column">
+                    <nav className={`mail-side-nav flex column ${this.state.openMenuClass}`}>
                         <NavLink onClick={this.clearFilters} className="compose-mail" to="/mail/compose/:">Compose</NavLink>
                         <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/inbox/">Inbox</NavLink>
                         <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/starred">Starred</NavLink>
                         <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/sentMails">Sent Mails</NavLink>
 
-                        <div className="mail-link">Drafts</div>
+                        {/* <div className="mail-link">Drafts</div> */}
 
                         <div className="prog-bar-container">
-                            <label htmlFor="">Mails Readed</label>
+                            <label htmlFor="">Unread Mails</label>
                             <div className="prog-bar-box">
                                 <div className="prog-bar" style={{ 'width': `${this.getUnreadPrecent()}` }}>{this.getUnreadPrecent()}</div>
                             </div>
@@ -194,7 +208,7 @@ class _MailApp extends React.Component {
                     <Route component={MailCompose} path="/mail/compose/:id" />
 
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 }

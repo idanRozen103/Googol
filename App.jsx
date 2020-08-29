@@ -7,6 +7,7 @@ import { MailApp } from './Mail/MailApp.jsx'
 import { About } from './pages/About.jsx'
 import { Search } from './cmps/Search.jsx'
 import { NavBar } from './cmps/NavBar.jsx'
+import { UserMsg } from './cmps/UserMsg.jsx'
 
 export class App extends React.Component {
 
@@ -33,6 +34,7 @@ export class App extends React.Component {
                             <Route component={Home} path="/" />
                         </Switch>
                     </main>
+                    <UserMsg/>
                 </div>
             </Router>
         )

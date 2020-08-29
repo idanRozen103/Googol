@@ -17,9 +17,10 @@
 
 .modal-content {
     background: white;
-    max-width: 90%;
-    min-width: 80%;
-    min-height: 400px;
+    /* max-width: 70%; */
+    min-width: 70%;
+    max-width: 80%;
+    min-height: 70%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     position: relative;
 }

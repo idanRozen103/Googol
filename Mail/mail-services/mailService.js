@@ -27,7 +27,7 @@ function createMail(subject = 'Wassap?', body = 'Pick up!', name = 'stavIdan') {
         subject,
         body,
         isRead: false,
-        sentAt: Date.now(),
+        sentAt: getRandTime(),
         isStarred: false,
         isSent: false,
         color: getRandomColor()
@@ -47,7 +47,14 @@ function _getInMails(num) {
         for (let i = 0; i < num; i++) {
             _inMails.push(createMail())
         }
+        
+
+
+
         _inMails.push(createMail('Get back to your projects.', ' Hello stav,  Your free trial expired a week ago, and we already miss you. 💔  Your projects, designs, and share links have been automatically locked. The good news is you can still get them back.  Purchase a subscription within 7 days to unlock your projects.', 'Lubo from Avocode'))
+        _inMails.sort((mail1, mail2) => {
+            return mail1.sentAt - mail2.sentAt
+        })
         storageService.save(IN_MAIL_KEY, _inMails)
     }
     return _inMails
@@ -120,12 +127,12 @@ function starMail(mail) {
 }
 
 
-
 function getFormatTime(unFormatTime) {
     const currTime = new Date(Date.now())
     const sentTime = new Date(unFormatTime)
+    const totalTime = (currTime - sentTime)
     const [currHour, sentHour] = [currTime.getHours(), sentTime.getHours()]
-    if (currHour >= sentHour) {
+    if (totalTime <= 86400000/2) {
         return `${get2DigTime(sentHour)}:${get2DigTime(sentTime.getMinutes())}`
     } else {
         const month = sentTime.toLocaleString('default', { month: 'short' });
@@ -151,3 +158,6 @@ function getRandomColor() {
 }
 
 
+function getRandTime() {
+    return utils.getRandInt(Date.now()-1*24*60**2*1000, Date.now())
+}
