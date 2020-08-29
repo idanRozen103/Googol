@@ -44,12 +44,12 @@ class _MailApp extends React.Component {
 
     getUnreadPrecent = () => {
         var countUnread = 0
-        const { inMails } = this.state        
-        for (let i=0; i < inMails.length; i++) {
+        const { inMails } = this.state
+        for (let i = 0; i < inMails.length; i++) {
             const mail = inMails[i]
             countUnread += (!mail.isRead) ? 1 : 0
         }
-        let res = ((countUnread/inMails.length)*100).toFixed(0) +'%'
+        let res = ((countUnread / inMails.length) * 100).toFixed(0) + '%'
         return res
     }
 
@@ -153,13 +153,13 @@ class _MailApp extends React.Component {
 
     toggleMenu = () => {
         var openMenuClass = ''
-        var openScreen =''
+        var openScreen = ''
         if (!this.state.openMenuClass) {
             openMenuClass = 'menu-open'
-            openScreen='open-screen'
+            openScreen = 'open-screen'
         }
-        
-        this.setState({openMenuClass, openScreen})
+
+        this.setState({ openMenuClass, openScreen })
     }
 
     render() {
@@ -170,9 +170,11 @@ class _MailApp extends React.Component {
             <div className="main-modal-header">
                 <div onClick={this.toggleMenu} className={`mail-screen ${this.state.openScreen}`}></div>
                 <div className="mail-search">
+                    <button onClick={this.toggleMenu} className="hamburger">☰</button>
+
                     <MailFilter location={this.props.location} onFilter={this.setFilter} />
                 </div>
-                <div className="sort-mail-container flex container">
+                <div className="sort-mail-container flex _container">
                     <div className="flex column">
                         <select defaultValue="" onChange={this.onSortMail} required className="sort-mail" name="" id="sort-mail">
                             <option value="" disabled hidden >Sort By</option>
@@ -184,8 +186,7 @@ class _MailApp extends React.Component {
                     </div>
                     {/* <button className="sort-mail-title">Sort By title</button> */}
                 </div>
-                <button onClick={this.toggleMenu}  className="hamburger">☰</button>
-                <div className="mail-container container flex">
+                <div className="mail-container _container flex">
                     <nav className={`mail-side-nav flex column ${this.state.openMenuClass}`}>
                         <NavLink onClick={this.clearFilters} className="compose-mail" to="/mail/compose/:">Compose</NavLink>
                         <NavLink onClick={this.clearFilters} className="mail-link" to="/mail/inbox/">Inbox</NavLink>
