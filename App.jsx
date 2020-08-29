@@ -28,8 +28,8 @@ export class App extends React.Component {
                         <Switch>
                             <Route component={BookApp} path="/book/inbox" />
                             <Route component={MailApp} path="/mail" />
-                            <Route component={KeepApp} path="/keep" />
                             <Route component={About} path="/about" />
+                            <Route component={KeepApp} path="/keep" />
                             <Route component={Home} path="/" />
                         </Switch>
                     </main>

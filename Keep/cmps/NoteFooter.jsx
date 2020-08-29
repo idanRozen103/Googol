@@ -4,9 +4,25 @@ export class NoteFooter extends React.Component {
 
     state = {
         isColorOpen: false,
+        pinColor: 'rgb(156, 152, 152)'
     }
 
     componentDidMount = () => {
+        if (this.props.note.isPinned) this.setState({ pinColor: 'black' })
+    }
+
+    onOpenColors = (ev) => {
+        ev.preventDefault()
+        this.setState({ isColorOpen: true })
+
+    }
+
+    closeColors = () => {
+        this.setState({ isColorOpen: false })
+    }
+
+    changePinColor = () => {
+        this.setState({ pinColor: this.props.note.isPinned ? 'rgb(156, 152, 152)' : 'black' })
     }
 
     onOpenColors = (ev) => {
@@ -21,7 +37,6 @@ export class NoteFooter extends React.Component {
 
     render() {
         const { note, onDeleteNote, onChangeNoteBGC, onCopyNote, onPinNote } = this.props
-        const colorClass = note.isPinned ? 'black' : '';
         function noteType() {
             switch (note.type) {
                 case 'NoteText':
@@ -41,7 +56,7 @@ export class NoteFooter extends React.Component {
                 {noteType()}
                 <div className="note-btns">
                     <input type="radio" id="pin" name="note-btn" value="pin" />
-                    <label htmlFor="pin"><i className={`fas fa-thumbtack + ${colorClass}`} onClick={(ev) => { ev.stopPropagation(); onPinNote(ev, note.id) }}></i></label>
+                    <label htmlFor="pin"><i className="fas fa-thumbtack" style={{ color: this.state.pinColor }} onClick={(ev) => { ev.stopPropagation(); this.changePinColor(); onPinNote(ev, note.id) }}></i></label>
                     <input type="radio" id="edit" name="note-btn" value="edit" />
                     <label htmlFor="edit" ><i className="fas fa-palette" onClick={(ev) => {
                         ev.stopPropagation()

@@ -1,6 +1,8 @@
+const { Route } = ReactRouterDOM
 
 import { NoteList } from './cmps/NoteList.jsx'
 import { NoteModal } from './cmps/NoteModal.jsx'
+import { SearchNote } from './cmps/SearchNote.jsx'
 import { NoteAdd } from './cmps/NoteAdd.jsx'
 import { keepService } from './service/keepService.js'
 
@@ -10,12 +12,16 @@ export class KeepApp extends React.Component {
 
     state = {
         notes: [],
+        filter: '',
         isModalOpen: false,
         selectedNote: '',
     }
 
     componentDidMount() {
-        this.loadNotes()
+        console.log(this.props);
+
+        if (this.props.location.pathname.length > 6) this.setState({ isModalOpen: true })
+        else this.loadNotes()
 
     }
 
@@ -42,11 +48,21 @@ export class KeepApp extends React.Component {
 
     onUpdateNote = (noteId, newTxt) => {
         keepService.updateNote(noteId, newTxt)
-            .then(() => this.loadNotes())
+            .then(() => {
+                this.loadNotes()
+            })
     }
 
     onNoteToAdd = (ev, note) => {
+        console.log(note);
         ev.preventDefault();
+        if (note.info.todos && note.info.todos.length) {
+            let splitedNote = { ...note, info: { ...note.info, todos: note.info.todos.split(',') } }
+            keepService.addTxtNote(splitedNote)
+            this.loadNotes()
+            return
+        }
+        if (!note.info.todos) return
         keepService.addTxtNote(note)
         this.loadNotes()
     }
@@ -54,6 +70,7 @@ export class KeepApp extends React.Component {
     onDeleteNote = (ev, noteId) => {
         ev.stopPropagation();
         this.setState({ isModalOpen: false, selectedNote: '' })
+        this.props.history.push('/keep')
         keepService.deleteNote(noteId)
             .then(() => this.loadNotes())
     }
@@ -67,14 +84,38 @@ export class KeepApp extends React.Component {
     onPinNote = (ev, noteId) => {
         ev.preventDefault();
         keepService.pinNote(noteId)
+            .then(() => this.loadNotes())
     }
 
+    onSetFilter = (value) => {
+        value.trim()
+        if (!value) value = ''
+        this.setState({ filter: value })
+    }
+
+
+    getNoteForDisplay = () => {
+
+        const notes = this.state.notes.filter(note => {
+            return (note.info.title.toLowerCase().includes(this.state.filter.toLowerCase()) ||
+                note.info.text && note.info.text.toLowerCase().includes(this.state.filter.toLowerCase())) ||
+
+                (note.info.todos) && (note.info.todos.some(todo => todo.toLowerCase().includes(this.state.filter.toLowerCase())))
+        })
+        return notes;
+    }
+
+
     render() {
+        const notes = this.getNoteForDisplay()
         return (
             <React.Fragment>
                 <NoteAdd onNoteToAdd={this.onNoteToAdd} />
-                <NoteList notes={this.state.notes} onPinNote={this.onPinNote} onDeleteNote={this.onDeleteNote} onCopyNote={this.onCopyNote} openModal={this.openModal} onChangeNoteBGC={this.onChangeNoteBGC} />
-                {this.state.isModalOpen && <NoteModal onPinNote={this.onPinNote} note={this.state.selectedNote} onCopyNote={this.onCopyNote} closeModal={this.closeModal} onChangeNoteBGC={this.onChangeNoteBGC} onUpdateNote={this.onUpdateNote} onDeleteNote={this.onDeleteNote} />}
+                {!this.state.selectedNote && <SearchNote filter={this.state.filter} onSetFilter={this.onSetFilter} />}
+                <NoteList notes={notes} onPinNote={this.onPinNote} onDeleteNote={this.onDeleteNote} onCopyNote={this.onCopyNote} openModal={this.openModal} onChangeNoteBGC={this.onChangeNoteBGC} />
+                <Route path="/keep/:id">
+                    {this.state.isModalOpen && <NoteModal onPinNote={this.onPinNote} note={this.state.selectedNote} onCopyNote={this.onCopyNote} closeModal={this.closeModal} onChangeNoteBGC={this.onChangeNoteBGC} onUpdateNote={this.onUpdateNote} onDeleteNote={this.onDeleteNote} />}
+                </Route>
             </React.Fragment >
         )
     }

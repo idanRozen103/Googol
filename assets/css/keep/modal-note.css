@@ -38,6 +38,11 @@
 .note-modal-content input[name="title"] {
     width: 90%;
     border-bottom: 1px solid #d2cacad1;
+    cursor: text;
+}
+
+.note-modal-content input{
+    cursor: text !important;
 }
 
 .close-note-modal {
