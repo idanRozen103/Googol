@@ -136,8 +136,8 @@ a {
 footer {
     position: static;
     width: 100vw;
-    bottom: 0;
-    height: 50px;
+    bottom: 0%;
+    margin-top: 10%;
     background-color: #dde3ff;
     vertical-align: baseline;
     height: 70px;
