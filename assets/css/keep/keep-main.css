@@ -189,6 +189,7 @@ iframe {
         visibility: visible;
         opacity: 1;
     }
+
 }
 
 @media (max-width:900px) {

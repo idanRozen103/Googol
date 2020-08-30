@@ -25,3 +25,9 @@ input:focus {
     margin: auto 10px;
     vertical-align: baseline;
 }
+
+@media (max-width:680px) {
+    .note-filter {
+        width: 265px;
+    }
+}
