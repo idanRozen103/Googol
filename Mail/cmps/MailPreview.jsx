@@ -12,7 +12,7 @@ class _MailPreview extends React.Component {
 
 
     getBodyStyle() {
-        let fontWeight = (!this.props.mail.isRead) ? '800' : '330'
+        let fontWeight = (!this.props.mail.isRead) ? '1000' : '330'
         return { 'fontWeight': fontWeight }
 
     }
