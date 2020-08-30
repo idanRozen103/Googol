@@ -314,7 +314,7 @@
     position: absolute;
     visibility: hidden;
     right: 0%;
-    top: 32%;
+    top: 25%;
     /* right: 1%; */
 }
 
@@ -323,7 +323,7 @@
     border: none;
     background-color: transparent;
     border-radius: 40%;
-    padding: 8px;
+    padding: 6px;
 }
 
 .mail-edit-btns button:hover {
@@ -379,6 +379,10 @@
     border-left: 1px solid rgba(170, 170, 170, 0.589);
     padding: 0rem 1.5rem;
     width: 75%;
+}
+
+.prog-bar {
+    border-radius: 2px;
 }
 
 .mail-addres {
