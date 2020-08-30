@@ -52,7 +52,7 @@ const _notes = [
             backgroundColor: "#fff",
         }
     },
- 
+
 
     {
         type: "NoteText",
@@ -79,7 +79,7 @@ const _notes = [
             backgroundColor: "#c4fd82",
         }
     },
- 
+
     {
         type: "NoteText",
         isPinned: false,
@@ -184,7 +184,15 @@ function addNote(note) {
 function _formatVideo(url) {
 
     var newUrl = url.split('=')
-    return ('https://www.youtube.com/embed/' + newUrl[1])
+    if (newUrl.length === 1) {
+        const splitedUrl = newUrl.split('.be/')
+        return 'https://www.youtube.com/embed/' + splitedUrl[1]
+    }
+    else if (newUrl.length > 2) {
+        newUrl = ('https://www.youtube.com/embed/' + newUrl[1])
+        return newUrl.split('&')[0]
+    }
+    else return ('https://www.youtube.com/embed/' + newUrl[1])
 }
 
 

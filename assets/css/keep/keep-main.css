@@ -24,15 +24,9 @@
     border-radius: 8px 0 0 8px;
 }
 
-
-
-.notes-input-line input[name="txt"] {
+.notes-input-line form>input {
     color: rgb(53, 52, 52);
     width: 100%;
-}
-
-.notes-input-line input{
-    
 }
 
 input {
@@ -165,8 +159,12 @@ iframe {
 }
 
 @media (max-width:680px) {
+    .container {
+        width: 98vw;
+        
+    }
     .main-notes {
-        padding: 20px 10px;
+        padding: 20px 5px;
     }
     .notes-input-line {
         flex-direction: column;
@@ -175,21 +173,22 @@ iframe {
     .notes-input-line i, .note-preview i {
         font-size: large;
     }
-    .notes-input-line input {
-        font-size: small;
+    .notes-input-line form>input {
+        font-size: medium;
+        width: 100%;
     }
+
     .note-modal-content {
         width: 90%;
     }
     .notes-input-btns {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
     }
     .note-preview i {
         visibility: visible;
         opacity: 1;
     }
-
 }
 
 @media (max-width:900px) {
