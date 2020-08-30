@@ -28,7 +28,6 @@ class _MailCompose extends React.Component {
     onSendMail = (ev) => {
         ev.preventDefault()
         eventBus.emit('notify', { msg: 'Mail Sent', type: 'success' })
-        console.log('hey', this.props.history.push('/mail/inbox'));
         mailService.addMail(this.state.newMail)
     }
 

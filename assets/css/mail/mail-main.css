@@ -57,6 +57,8 @@
     padding: 0.8rem;
     flex-basis: 25%;
     margin-right: 1rem;
+    margin-bottom: 30px;
+
 }
 
 .bold {
@@ -144,6 +146,7 @@
 }
 
 .compose-mail {
+    box-shadow: 0px 4px 2px 0px #9c719b75;
     text-decoration: none;
     margin: 1rem auto;
     padding: 0.5rem 0.8rem;
@@ -162,10 +165,11 @@
 
 .mail-link {
     padding: 1rem;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #bab5b5;
 }
 
 .mail-link.active {
+    border-radius: 0 30px 30px 0;
     background-color: rgba(169, 147, 228, 0.377);
 }
 
@@ -269,7 +273,7 @@
 }
 
 .mail-prev:hover {
-    background-color: rgba(169, 147, 228, 0.089);
+    background-color: #850b713b;
 }
 
 .mail-preb-body {

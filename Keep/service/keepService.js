@@ -66,10 +66,6 @@ const _notes = [
             backgroundColor: "#f28b82",
         }
     },
- 
-
-  
-
 
     {
         type: "NoteText",
@@ -83,6 +79,7 @@ const _notes = [
             backgroundColor: "#c4fd82",
         }
     },
+ 
     {
         type: "NoteText",
         isPinned: false,
@@ -95,22 +92,6 @@ const _notes = [
             backgroundColor: "#d7aefb",
         }
     },
-
-
-
-    {
-        type: "NoteVideo",
-        id: makeId(),
-        isPinned: false,
-        info: {
-            title: 'note7',
-            url: "https://www.youtube.com/embed/MYJldv7ZhOA"
-        },
-        style: {
-            backgroundColor: "#ffee58fa",
-        }
-    },
-
     {
         type: "NoteText",
         isPinned: false,
@@ -123,6 +104,22 @@ const _notes = [
             backgroundColor: "#fdcfe8",
         }
     },
+
+
+    {
+        type: "NoteVideo",
+        id: makeId(),
+        isPinned: false,
+        info: {
+            title: 'Relaxation music',
+            url: "https://www.youtube.com/embed/MYJldv7ZhOA"
+        },
+        style: {
+            backgroundColor: "#ffee58fa",
+        }
+    },
+
+
     {
         type: "NoteVideo",
         id: makeId(),
@@ -132,7 +129,7 @@ const _notes = [
             url: "https://www.youtube.com/embed/qeF3Sx_IGvE"
         },
         style: {
-            backgroundColor: "#ffee58fa",
+            backgroundColor: "#ffc107",
         }
     },
 
@@ -192,7 +189,6 @@ function _formatVideo(url) {
 
 
 function _createTodoNote(note) {
-    console.log(note);
     let newTodos = []
     note.info.todos.forEach(todo => {
 

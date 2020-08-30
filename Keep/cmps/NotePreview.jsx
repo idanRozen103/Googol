@@ -20,9 +20,9 @@ export class NotePreview extends React.Component {
         const DynamicCmp = cmpMap[note.type]
 
         return (
-            <Link to={`/keep/${note.id}`}>
+            <Link to={`/keep/${note.id}` }>
                 <React.Fragment>
-                    <DynamicCmp note={note} onTodoToggle={note.type === 'NoteTodos' && onTodoToggle} />
+                    <DynamicCmp note={note} onTodoToggle={note.type === 'NoteTodos' && onTodoToggle}  />
                     <NoteFooter onPinNote={onPinNote} onTodoToggle={onTodoToggle} note={note} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} onChangeNoteBGC={onChangeNoteBGC} />
                 </React.Fragment >
             </Link>

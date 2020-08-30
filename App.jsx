@@ -5,7 +5,6 @@ import { BookApp } from './Books/BookApp.jsx'
 import { KeepApp } from './Keep/KeepApp.jsx'
 import { MailApp } from './Mail/MailApp.jsx'
 import { About } from './pages/About.jsx'
-import { Search } from './cmps/Search.jsx'
 import { NavBar } from './cmps/NavBar.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 
@@ -36,6 +35,9 @@ export class App extends React.Component {
                     </main>
                     <UserMsg/>
                 </div>
+                <footer>
+                    <h2>Stav Bar Yaar &#38; Idan Rozen © 2020</h2>
+                </footer>
             </Router>
         )
     }

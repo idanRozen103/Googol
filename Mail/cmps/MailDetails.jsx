@@ -20,7 +20,6 @@ class _MailDetails extends React.Component {
     }
 
     getNameFirstLetter(name) {
-        console.log(name);
         if (!name) return
         return name[0]
     }

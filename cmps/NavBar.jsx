@@ -5,10 +5,8 @@ export class NavBar extends React.Component {
         return (
             <nav className="main-nav flex">
                 <NavLink activeClassName="active-nav-link" className="nav-link" exact to="/">Home</NavLink>
-                <NavLink activeClassName="active-nav-link" className="nav-link" to="/about">About Us</NavLink>
-                <NavLink activeClassName="active-nav-link" className="nav-link" to="/book">MissBooks</NavLink>
                 <NavLink activeClassName="active-nav-link" className="nav-link" to="/keep">MissKeep</NavLink>
-                <NavLink activeClassName="active-nav-link" className="nav-link" to="/mail/inbox">Mail</NavLink>
+                <NavLink activeClassName="active-nav-link" className="nav-link" to="/mail/inbox">MisterEmail</NavLink>
             </nav>
         )
     }
