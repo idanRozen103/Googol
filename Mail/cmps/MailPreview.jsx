@@ -16,7 +16,7 @@ class _MailPreview extends React.Component {
         const fontSize = (!this.props.mail.isRead) ? '1.01rem' : '1rem'
         const color = (!this.props.mail.isRead) ? 'black' : 'inherit'
         const opacity = (!this.props.mail.isRead) ? '1' : '0.8'
-        const backgroundColor = (!this.props.mail.isRead) ? '#E7ECF7' : '#F0F5FF'
+        const backgroundColor = (!this.props.mail.isRead) ? '#E2ECFE' : '#F0F5FF'
         return { 'fontWeight': fontWeight, 'opacity': opacity, 'color': color, 'fontSize': fontSize, 'backgroundColor': backgroundColor }
 
     }
