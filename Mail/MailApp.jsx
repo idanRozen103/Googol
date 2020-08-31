@@ -198,9 +198,9 @@ class _MailApp extends React.Component {
 
                     <MailList clearFilters={this.clearFilters} sentMails={sentMails} mails={inMails} onStarredMail={this.onStarredMail} onDeleteMail={this.onDeleteMail} onMarkRead={this.onMarkRead} />
                     <Route component={MailCompose} path="/mail/compose/:id" />
-
                 </div>
             </div>
+
         )
     }
 }
