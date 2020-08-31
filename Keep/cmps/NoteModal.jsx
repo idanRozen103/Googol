@@ -49,7 +49,11 @@ class _NoteModal extends React.Component {
                 return <img src={note.info.url} width="100%" height="82%" />
             case 'NoteTodos':
                 return (<ul>
-                    {note.info.todos.map(todo => <li key={todo.id} className={todo.isDone ? 'checked' : ''} onClick={(ev) => { this.props.onTodoToggle(this, ev, note.id, todo.id) }}><input type="checkbox" onChange={() => console.log('')} checked={todo.isDone ? true : false} />{todo.text}
+                    {note.info.todos.map(todo => <li key={todo.id} className={`todo flex ${todo.isDone ? 'checked' : ''}`} ><div><input type="checkbox" onChange={() => console.log('')} checked={todo.isDone ? true : false} onClick={(ev) => { ev.stopPropagation(); this.props.onTodoToggle(this, ev, note.id, todo.id) }} style={{ cursor: 'pointer' }} /><p className="todo-content" >{todo.text}</p></div>
+                        <button className="remove-todo" onClick={(ev) => {
+                            ev.stopPropagation();
+                            this.props.onTodoRemove(note.id, todo.id);
+                        }}>x</button>
                     </li>
                     )}
                     <br />

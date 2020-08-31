@@ -66,8 +66,8 @@ export class KeepApp extends React.Component {
         eventBus.emit('notify', { msg: 'New note added', type: 'success' })
     }
 
-    onDeleteNote = (ev, noteId) => {
-        ev.stopPropagation();
+    onDeleteNote = (noteId) => {
+        // ev.stopPropagation();
         this.setState({ isModalOpen: false, selectedNote: '' })
         this.props.history.push('/keep')
         keepService.deleteNote(noteId)
@@ -104,6 +104,14 @@ export class KeepApp extends React.Component {
         this.loadNotes()
     }
 
+    onTodoRemove = (noteId, todoId) => {
+        keepService.removeTodo(noteId, todoId)
+            .then((note) => {
+                if (!note.info.todos.length) this.onDeleteNote(noteId)
+                else this.loadNotes()
+            })
+    }
+
     getNoteForDisplay = () => {
 
         const notes = this.state.notes.filter(note => {
@@ -122,9 +130,9 @@ export class KeepApp extends React.Component {
             <React.Fragment>
                 <NoteAdd onNoteToAdd={this.onNoteToAdd} />
                 {!this.state.selectedNote && <SearchNote filter={this.state.filter} onSetFilter={this.onSetFilter} />}
-                <NoteList notes={notes} onPinNote={this.onPinNote} onTodoToggle={this.onTodoToggle} onDeleteNote={this.onDeleteNote} onCopyNote={this.onCopyNote} openModal={this.openModal} onChangeNoteBGC={this.onChangeNoteBGC} />
+                <NoteList notes={notes} onPinNote={this.onPinNote} onTodoToggle={this.onTodoToggle} onDeleteNote={this.onDeleteNote} onCopyNote={this.onCopyNote} openModal={this.openModal} onTodoRemove={this.onTodoRemove} onChangeNoteBGC={this.onChangeNoteBGC} />
                 <Route path="/keep/:id">
-                    {this.state.isModalOpen && <NoteModal onPinNote={this.onPinNote} note={this.state.selectedNote} onCopyNote={this.onCopyNote} closeModal={this.closeModal} onTodoToggle={this.onTodoToggle} onChangeNoteBGC={this.onChangeNoteBGC} onUpdateNote={this.onUpdateNote} onDeleteNote={this.onDeleteNote} />}
+                    {this.state.isModalOpen && <NoteModal onPinNote={this.onPinNote} note={this.state.selectedNote} onCopyNote={this.onCopyNote} closeModal={this.closeModal} onTodoToggle={this.onTodoToggle} onTodoRemove={this.onTodoRemove} onChangeNoteBGC={this.onChangeNoteBGC} onUpdateNote={this.onUpdateNote} onDeleteNote={this.onDeleteNote} />}
                 </Route>
             </React.Fragment >
         )

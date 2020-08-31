@@ -1,0 +1,31 @@
+.todo-content {
+margin-block-start: 8px;
+margin-block-end: 8px;
+display: inline-block;
+}
+
+.todo input[type="checkbox"]{
+    cursor: pointer;
+}
+.todo input[type="checkbox"]:hover{
+    color: red;
+    background-color: rgb(143, 142, 142);
+}
+
+.todo{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-todo{
+    outline-style: none;
+    border: none;
+    color: #b8b6b6;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: inherit;
+}
+
+.remove-todo:hover{
+    color: black;
+}

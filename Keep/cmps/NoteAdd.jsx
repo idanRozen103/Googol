@@ -34,7 +34,7 @@ export class NoteAdd extends React.Component {
                 currentButtonPressd = 'checklist';
                 break;
             case 'video':
-                currPlaceholder = 'Enter video URL';
+                currPlaceholder = 'Enter youtube URL';
                 noteToAdd = keepService.getEmptyVideoNote();
                 currNoteType = 'url';
                 name = 'url';
@@ -74,8 +74,9 @@ export class NoteAdd extends React.Component {
         return (
             <div className="flex notes-input-line" >
                 <form onSubmit={(ev) => {
-                    this.changeNoteType(this.state.currentButtonPressd)
+                    if (!this.state.value.trim()) { ev.preventDefault(); return }
                     this.props.onNoteToAdd(ev, this.state.noteToAdd)
+                    this.changeNoteType(this.state.currentButtonPressd)
                 }}>
                     <input name={this.state.name} type={this.state.currNoteType} value={this.state.value} placeholder={this.state.currPlaceholder} onChange={(ev) => { this.HandleInput(ev) }} />
                 </form>

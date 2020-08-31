@@ -4,7 +4,7 @@ export class NoteList extends React.Component {
 
 
     render() {
-        const { notes, onDeleteNote, openModal, onChangeNoteBGC, onCopyNote, onPinNote, onTodoToggle } = this.props
+        const { notes, onDeleteNote, openModal, onChangeNoteBGC, onCopyNote, onPinNote, onTodoToggle, onTodoRemove } = this.props
         const pinnedNotes = notes.filter(note => note.isPinned)
         const unPinnedNotes = notes.filter(note => !note.isPinned)
         var hiddenDiv = !pinnedNotes.length ? 'hide' : ''
@@ -13,7 +13,7 @@ export class NoteList extends React.Component {
                 <ul className={`container main-notes pinned-notes ${hiddenDiv}`} >
                     {pinnedNotes.map(note => (
                         <li className="note-preview flex column" key={note.id} style={note.style} onClick={() => openModal(note)}>
-                            <NotePreview onPinNote={onPinNote} onTodoToggle={onTodoToggle} note={note} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} onChangeNoteBGC={onChangeNoteBGC} />
+                            <NotePreview onPinNote={onPinNote} onTodoRemove={onTodoRemove} onTodoToggle={onTodoToggle} note={note} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} onChangeNoteBGC={onChangeNoteBGC} />
                         </li>)
 
                     )}
@@ -21,7 +21,7 @@ export class NoteList extends React.Component {
                 <ul className="container main-notes">
                     {unPinnedNotes.map((note) =>
                         <li className="note-preview flex column" key={note.id} style={note.style} onClick={() => openModal(note)}>
-                            <NotePreview onTodoToggle={onTodoToggle} onPinNote={onPinNote} note={note} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} onChangeNoteBGC={onChangeNoteBGC} />
+                            <NotePreview onTodoToggle={onTodoToggle} onTodoRemove={onTodoRemove}  onPinNote={onPinNote} note={note} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} onChangeNoteBGC={onChangeNoteBGC} />
                         </li>
 
                     )}

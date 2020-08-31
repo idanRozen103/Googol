@@ -1,5 +1,7 @@
 @import './modal-note.css';
 @import './noteSearch.css';
+@import './noteTodos.css';
+
 .notes-input-line {
     width: 60%;
     justify-content: space-between;
@@ -49,6 +51,10 @@ input {
 .notes-input-line i, .note-preview i {
     font-size: x-large;
     color: #a1a1a1a8
+}
+
+.pinnedNote{
+    color: black;
 }
 
 .notes-input-btns i:hover {

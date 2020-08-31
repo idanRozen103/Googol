@@ -16,13 +16,13 @@ var cmpMap = {
 
 export class NotePreview extends React.Component {
     render() {
-        const { note, onDeleteNote, onChangeNoteBGC, onCopyNote, onPinNote, onTodoToggle } = this.props
+        const { note, onDeleteNote, onChangeNoteBGC, onCopyNote, onPinNote, onTodoToggle, onTodoRemove } = this.props
         const DynamicCmp = cmpMap[note.type]
 
         return (
-            <Link to={`/keep/${note.id}` }>
+            <Link to={`/keep/${note.id}`}>
                 <React.Fragment>
-                    <DynamicCmp note={note} onTodoToggle={note.type === 'NoteTodos' && onTodoToggle}  />
+                    <DynamicCmp note={note} onTodoToggle={note.type === 'NoteTodos' && onTodoToggle} onTodoRemove={note.type === 'NoteTodos' && onTodoRemove} />
                     <NoteFooter onPinNote={onPinNote} onTodoToggle={onTodoToggle} note={note} onDeleteNote={onDeleteNote} onCopyNote={onCopyNote} onChangeNoteBGC={onChangeNoteBGC} />
                 </React.Fragment >
             </Link>

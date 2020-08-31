@@ -74,7 +74,7 @@
     width: 50%;
 }
 
- .checked {
+ .checked p{
     text-decoration: line-through;
     color: rgb(165, 163, 163);
 }

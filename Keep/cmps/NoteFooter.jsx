@@ -4,11 +4,6 @@ export class NoteFooter extends React.Component {
 
     state = {
         isColorOpen: false,
-        pinColor: 'rgb(156, 152, 152)'
-    }
-
-    componentDidMount = () => {
-        if (this.props.note.isPinned) this.setState({ pinColor: 'black' })
     }
 
     onOpenColors = (ev) => {
@@ -19,10 +14,6 @@ export class NoteFooter extends React.Component {
 
     closeColors = () => {
         this.setState({ isColorOpen: false })
-    }
-
-    changePinColor = () => {
-        this.setState({ pinColor: this.props.note.isPinned ? 'rgb(156, 152, 152)' : 'black' })
     }
 
     onOpenColors = (ev) => {
@@ -56,7 +47,7 @@ export class NoteFooter extends React.Component {
                 {noteType()}
                 <div className="note-btns">
                     <input type="radio" id="pin" name="note-btn" value="pin" />
-                    <label htmlFor="pin"><i className="fas fa-thumbtack" style={{ color: this.state.pinColor }} onClick={(ev) => { ev.stopPropagation(); this.changePinColor(); onPinNote(ev, note.id) }}></i></label>
+                    <label htmlFor="pin"><i className="fas fa-thumbtack" style={{ color: note.isPinned? 'black' : '' }} onClick={(ev) => { ev.stopPropagation();  onPinNote(ev, note.id) }}></i></label>
                     <input type="radio" id="edit" name="note-btn" value="edit" />
                     <label htmlFor="edit" ><i className="fas fa-palette" onClick={(ev) => {
                         ev.stopPropagation()
@@ -65,7 +56,7 @@ export class NoteFooter extends React.Component {
                     <input type="radio" id="note-clone" name="note-btn" value="note-clone" />
                     <label htmlFor="note-clone" ><i className="fas fa-clone" onClick={(ev) => { ev.stopPropagation(); onCopyNote(ev, note) }}></i></label>
                     <input type="radio" id="note-delete" name="note-btn" value="note-delete" />
-                    <label htmlFor="note-delete" ><i className="fas fa-trash-alt" onClick={(ev) => { ev.preventDefault(); onDeleteNote(ev, note.id) }} ></i></label>
+                    <label htmlFor="note-delete" ><i className="fas fa-trash-alt" onClick={(ev) => { ev.preventDefault(); onDeleteNote(note.id) }} ></i></label>
                     {this.state.isColorOpen && <ColorPalette onChangeNoteBGC={onChangeNoteBGC} note={note} closeColors={this.closeColors} />}
                 </div >
             </div >

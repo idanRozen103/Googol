@@ -14,7 +14,8 @@ export const keepService = {
     copyNote,
     pinNote,
     getNote,
-    toggleTodo
+    toggleTodo,
+    removeTodo
 }
 
 const _notes = [
@@ -356,5 +357,16 @@ function toggleTodo(noteId, todoId) {
         })
         currTodo.isDone = !currTodo.isDone
         storageService.save(KEEP_KEY, notes)
+    })
+}
+
+function removeTodo(noteId, todoId) {
+    return getNote(noteId).then(note => {
+        const currTodoIdx = note.info.todos.findIndex(todo => {
+            return todo.id === todoId
+        })
+        note.info.todos.splice(currTodoIdx, 1)
+        storageService.save(KEEP_KEY, notes)
+        return Promise.resolve(note)
     })
 }
