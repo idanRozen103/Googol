@@ -32,14 +32,17 @@
 .hamburger {
     visibility: hidden;
     position: absolute;
-    background-color: #74747428;
-    font-size: 1.7rem;
-    border-radius: 10%;
+    background-color: #80b3f328;
+    font-size: 1.6rem;
+    border-radius: 50.7%;
+    padding: 4 8px;
     color: rgb(61, 61, 61);
     border: 0;
-    /* top: 17.1%; */
-    left: -30%;
+    left: -41.8%;
+    height: 100%;
+    width: 43px;
 }
+
 
 .menu-open {
     transform: translateX(0) !important;
@@ -401,7 +404,10 @@
     border-left: 1px solid rgba(170, 170, 170, 0.589);
     padding: 0rem 1.5rem;
     width: 75%;
+    overflow-y: scroll;
+    height: 100%;
 }
+
 
 .prog-bar {
     border-radius: 2px;
@@ -464,11 +470,11 @@
 }
 
 .reply-btn:hover {
-    background-color: #DDE3FF;
+    background-color: #b9c3f175;
 }
 
 .star-btn:hover {
-    background-color: #DDE3FF;
+    background-color: #b9c3f175;
 }
 
 .mail-details-body {
