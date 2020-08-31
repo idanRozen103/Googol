@@ -4,7 +4,7 @@ const { withRouter } = ReactRouterDOM
 class _MailModal extends React.Component {
     state = {
         isShown: true
-    }
+    } 
     closeModal = (ev) => {
         ev.preventDefault()
         this.props.history.push('/mail/inbox')
